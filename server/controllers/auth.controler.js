@@ -76,7 +76,7 @@ export const signUp = async (req, res) => {
 export const signIn = async (req, res) => {
     const {email, password} = req.body;
     try {
-        //checking is user fill all the fields
+
         if (!email || !password) {
             return res.status(400).json({message: "Please fill all the fields"});
         }
@@ -108,10 +108,7 @@ export const signIn = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "User logged in successfully",
-            data: {
-                token,
-                user: existingUser
-            }
+            user: existingUser
         })
 
     } catch (e) {

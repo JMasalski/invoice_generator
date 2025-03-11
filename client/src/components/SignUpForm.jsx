@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {LoaderCircle} from "lucide-react";
+import {useAuthStore} from "../store/useAuthStore.js";
 
 const SignUpForm = () => {
     const [signUpData, setSignUpData] = useState({
@@ -7,12 +8,13 @@ const SignUpForm = () => {
         email: "",
         password: "",
     })
-    const loading = true
+    const {signUp,loading} = useAuthStore()
     return (
         <form className="space-y-5"
               onSubmit={(e) => {
                   e.preventDefault()
                   console.log(signUpData)
+                  signUp(signUpData)
               }}>
             <label htmlFor='name' className="block text-md fond-medium text-gray-800">
                 Full name

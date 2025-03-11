@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv'
 import connectDB from './db/db.js'
 import cookieParser from 'cookie-parser'
-
+import cors from 'cors'
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/product.routes.js";
@@ -14,7 +14,12 @@ import invoiceRoutes from "./routes/invoice.routes.js";
 
 const app = express();
 
-
+app.use(cors(
+    {
+        origin: 'http://localhost:5173',
+        credentials: true
+    }
+))
 app.use(cookieParser())
 app.use(express.json());
 dotenv.config();

@@ -1,17 +1,19 @@
 import React, {useState} from 'react'
 import {LoaderCircle} from 'lucide-react'
+import {useAuthStore} from "../store/useAuthStore.js";
 
 const LoginForm = () => {
     const [loginData, setLoginData] = useState({
         email: "",
         password: "",
     })
-    const loading = true
+    const {login,loading} = useAuthStore()
     return (
         <form className="space-y-5"
               onSubmit={(e) => {
                   e.preventDefault()
                   console.log(loginData)
+                  login(loginData)
               }}>
             <label htmlFor='email' className="block text-md fond-medium text-gray-800">
                 Email address

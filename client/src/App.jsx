@@ -3,6 +3,9 @@ import AuthPage from "./pages/AuthPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import {useAuthStore} from "./store/useAuthStore.js";
 import {useEffect} from "react";
+import {Toaster} from "react-hot-toast";
+import Layout from "./components/Layout.jsx";
+import SettingsPage from "./pages/SettingsPage.jsx";
 
 function App() {
     const {checkingAuth, authUser, checkAuth} = useAuthStore();
@@ -20,9 +23,14 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path="/" element={authUser ? <HomePage/> : <Navigate to="/auth"/>}/>
-                <Route path="/auth" element={!authUser ? <AuthPage/> : <Navigate to="/"/>}/>
+                <Route path="/" element={authUser ? <Layout /> : <Navigate to="/auth" />}>
+                    <Route index element={<HomePage />} />
+                    <Route path="/settings" element={<SettingsPage />} />
+                </Route>
+                <Route path="/auth" element={!authUser ? <AuthPage /> : <Navigate to="/" />} />
+                <Route path="*" element={<Navigate to={authUser ? "/" : "/auth"} />} />
             </Routes>
+            <Toaster/>
         </>
     );
 }

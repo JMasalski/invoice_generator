@@ -6,6 +6,9 @@ import {useEffect} from "react";
 import {Toaster} from "react-hot-toast";
 import Layout from "./components/Layout.jsx";
 import SettingsPage from "./pages/SettingsPage.jsx";
+import InvoicePage from "./pages/InvoicePage.jsx";
+import ClientsPage from "./pages/ClientsPage.jsx";
+import ProductsPage from "./pages/ProductsPage.jsx";
 
 function App() {
     const {checkingAuth, authUser, checkAuth} = useAuthStore();
@@ -26,6 +29,10 @@ function App() {
                 <Route path="/" element={authUser ? <Layout /> : <Navigate to="/auth" />}>
                     <Route index element={<HomePage />} />
                     <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/invoices" element={<InvoicePage />} />
+                    <Route path="/invoices/new" element={<SettingsPage />} />
+                    <Route path="/clients" element={<ClientsPage />} />
+                    <Route path="/products" element={<ProductsPage />} />
                 </Route>
                 <Route path="/auth" element={!authUser ? <AuthPage /> : <Navigate to="/" />} />
                 <Route path="*" element={<Navigate to={authUser ? "/" : "/auth"} />} />

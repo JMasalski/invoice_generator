@@ -8,6 +8,7 @@ const SignUpForm = () => {
         email: "",
         password: "",
     })
+
     const {signUp,loading} = useAuthStore()
     return (
         <form className="space-y-5"

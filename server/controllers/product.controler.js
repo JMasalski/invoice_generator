@@ -118,9 +118,11 @@ export const deleteProduct =async(req,res) =>{
             return res.status(404).json({message: "Product not found"});
         }
         await Product.findByIdAndDelete(productId);
+        const updatedProducts = await Product.find({ userId });
         res.status(200).json({
             success:true,
-            message: "Product deleted successfully"
+            message: "Product deleted successfully",
+            products: updatedProducts
         })
     }catch (e) {
         console.log("Error in delete product route", e);

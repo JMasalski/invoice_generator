@@ -1,46 +1,56 @@
-import React from "react";
+import React, {useState} from "react";
 import {useAuthStore} from "../store/useAuthStore.js";
-import {LogOut, Settings} from "lucide-react";
+import {ArrowLeft, LogOut} from "lucide-react";
 import {useNavigate} from "react-router-dom";
+import {sidebarLinks} from "../constants/sidebarLinks.js";
 
 const Sidebar = () => {
     const navigate = useNavigate()
+    const [open, setOpen] = useState(true);
     const handleNav = (path) => {
         navigate(path)
     }
-    const {logout, authUser} = useAuthStore()
-    return (
-        <aside className="w-fit h-screen bg-blue-700 text-white p-4">
-            <nav className="flex flex-col h-full justify-between">
-                <div>
-                    <h2 className="text-xl font-bold mb-4" onClick={() => handleNav("/")}>Billify</h2>
-                    <ul>
-                        <li className="py-2">Dashboard</li>
-                        <li className="py-2">Invoices</li>
-                        <li className="py-2">Settings</li>
-                    </ul>
-                </div>
-                <div className="flex flex-col mt-auto space-y-5 bg-blue-800 p-2 md:p-3 lg:p-5 rounded-xl">
-                    <button
-                        onClick={() => handleNav("/settings")}
-                        className="flex items-center text-white hover:text-gray-500 rounded-full  gap-x-5"
-                    >
-                        <Settings size={35}/>
-                        <span
-                            className="hidden items-center justify-center hover:text-gray-300 lg:flex text-white">
-                            Settings
-                        </span>
-                    </button>
+    const isActive = (path) => {
+        return location.pathname === path ? "bg-blue-700" : ""
+    }
 
-                    <button onClick={logout} className="flex items-center rounded-full text-white gap-x-5 hover:text-red-500">
-                        <LogOut size={35}/>
-                        <span
-                            className="hidden items-center justify-center  xl:flex ">
-                            Logout
-                        </span>
-                    </button>
-                </div>
-            </nav>
+    const {logout} = useAuthStore()
+    return (
+        <aside className={` ${open ? 'w-72' : 'w-20'} duration-300  h-screen bg-blue-500 text-white p-5 pt-8 relative`}>
+
+            <ArrowLeft className={`${!open && 'rotate-180'} transition-transform duration-500 absolute -right-3 
+            top-8 size-8 rounded-full bg-blue-900  border-2 border-black cursor-pointer
+            `}
+                       onClick={() => setOpen(!open)}
+            />
+
+            <div className="flex items-center gap-x-4 cursor-pointer" onClick={() => handleNav('/')}>
+                <img src='logo.png' width="30" height="30" className="ml-1" alt="logo"/>
+                <h1 className={`origin-left font-bold text-3xl duration-300 ${!open && 'scale-0'}`}>Billify</h1>
+            </div>
+
+            <ul className="flex flex-col h-[95%] mt-5 gap-y-3">
+                {sidebarLinks.map((link) => (
+                    <li
+                        key={link.name}
+                        className={`flex rounded-md p-2 cursor-pointer hover:bg-blue-700 text-sm items-center gap-x-4 ${isActive(link.path)} ${
+                            link.isBottom ? "mt-auto" : "mt-2"
+                        }`}
+                        onClick={() => handleNav(link.path)}
+                    >
+                        <link.icon className="size-6" />
+                        <span className={`${!open && 'hidden'}`}>{link.name}</span>
+                    </li>
+
+                ))}
+                <li className="flex rounded-md p-2 cursor-pointer hover:bg-blue-700 hover:text-red-500 text-sm items-center gap-x-4" onClick={logout} >
+                    <LogOut className="size-6"/>
+                    <span className={`${!open && 'hidden'}`}>Logout</span>
+                </li>
+
+            </ul>
+
+
         </aside>
 
     );

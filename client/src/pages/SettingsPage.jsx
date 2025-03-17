@@ -1,8 +1,16 @@
-import React from 'react'
+import EditProfileForm from "../components/EditProfileForm.jsx";
 
 const SettingsPage = () => {
+
+
     return (
-        <div>SettingsPage</div>
-    )
-}
-export default SettingsPage
+        <div className="pt-1 md:pt-2 lg:pt-4">
+            <h1 className="text-lg md:text-2xl font-medium">
+                Change your information here
+            </h1>
+            <EditProfileForm/>
+        </div>
+    );
+};
+
+export default SettingsPage;

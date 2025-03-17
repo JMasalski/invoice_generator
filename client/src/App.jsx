@@ -30,7 +30,7 @@ function App() {
                     <Route index element={<HomePage />} />
                     <Route path="/settings" element={<SettingsPage />} />
                     <Route path="/invoices" element={<InvoicePage />} />
-                    <Route path="/invoices/new" element={<SettingsPage />} />
+                    {/*<Route path="/invoices/new" element={<SettingsPage />} />*/}
                     <Route path="/clients" element={<ClientsPage />} />
                     <Route path="/products" element={<ProductsPage />} />
                 </Route>

@@ -53,5 +53,30 @@ export const useAuthStore = create((set) => ({
         } finally {
             set({checkingAuth: false})
         }
+    },
+    updateProfile: async (profileData) =>{
+        try{
+            set({loading: true})
+            console.log(profileData)
+
+            const res = await axiosInstance.put("/users/update", profileData)
+            set({authUser: res.data.user})
+            toast.success("Profile updated successfully")
+        } catch (e) {
+            console.log(e.response.data.message)
+            toast.error(e.response.data.message)
+        } finally {
+            set({loading: false})
+        }
+    },
+    deleteAcc: async () =>{
+        try{
+            const res = await axiosInstance.delete("/users/delete")
+            set({authUser: null})
+        } catch (e) {
+            console.log(e.response.data.message)
+            toast.error(e.response.data.message)
+        } finally {
+        }
     }
 }))

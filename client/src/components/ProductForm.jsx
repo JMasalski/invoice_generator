@@ -8,8 +8,8 @@ const ProductForm = ({addProduct}) => {
         price: "",
         taxRate: ""
     })
-
-
+    //TODO Add pagination
+    // Add search
     const {productLoading}=useProductStore()
     return (
         <form className="mt-5"

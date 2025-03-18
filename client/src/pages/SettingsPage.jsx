@@ -1,4 +1,4 @@
-import EditProfileForm from "../components/EditProfileForm.jsx";
+import EditProfileForm from "../components/Forms/EditProfileForm.jsx";
 
 const SettingsPage = () => {
 

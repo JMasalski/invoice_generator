@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {LoaderCircle} from 'lucide-react'
-import {useAuthStore} from "../store/useAuthStore.js";
+import {useAuthStore} from "../../store/useAuthStore.js";
 
 const LoginForm = () => {
     const [loginData, setLoginData] = useState({

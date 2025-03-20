@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import {useProductStore} from "../../store/useProductStore.js";
 import {LoaderCircle, Plus} from "lucide-react";
 
-const ProductForm = ({addProduct}) => {
+const ProductForm = () => {
+    const {addProduct} = useProductStore();
     const [productData, setProductData] = useState({
         name: "",
         price: "",

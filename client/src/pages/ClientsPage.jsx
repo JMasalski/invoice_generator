@@ -23,7 +23,7 @@ const ClientsPage = () => {
             {/* Right side */}
             <div>
                 <h1 className="text-3xl leading-tight">Your Clients</h1>
-                <div className="flex gap-5">
+                <div className="flex flex-1 gap-5">
                     <div className="mt-4 overflow-auto">
                         {loading && (
                             <div

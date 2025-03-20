@@ -3,10 +3,11 @@ import {useAuthStore} from "../store/useAuthStore.js";
 import {ArrowLeft, LogOut} from "lucide-react";
 import {useNavigate} from "react-router-dom";
 import {sidebarLinks} from "../constants/sidebarLinks.js";
+import {useSidebarStore} from "../store/useSidebarStore.js";
 
 const Sidebar = () => {
     const navigate = useNavigate()
-    const [open, setOpen] = useState(true);
+    const { open, toggleSidebar } = useSidebarStore();
     const handleNav = (path) => {
         navigate(path)
     }
@@ -16,12 +17,12 @@ const Sidebar = () => {
 
     const {logout} = useAuthStore()
     return (
-        <aside className={` ${open ? 'w-72' : 'w-20'} duration-300  h-screen bg-blue-500 text-white p-5 pt-8 relative`}>
+        <aside className={` ${open ? 'w-72' : 'w-20'} fixed top-0 left-0 h-screen bg-blue-500 text-white p-5 pt-8 duration-300`}>
 
             <ArrowLeft className={`${!open && 'rotate-180'} transition-transform duration-500 absolute -right-3 
             top-8 size-8 rounded-full bg-blue-900  border-2 border-black cursor-pointer
             `}
-                       onClick={() => setOpen(!open)}
+                       onClick={toggleSidebar}
             />
 
             <div className="flex items-center gap-x-4 cursor-pointer" onClick={() => handleNav('/')}>

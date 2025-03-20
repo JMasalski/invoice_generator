@@ -4,7 +4,7 @@ import { FileX, Loader, Pencil } from "lucide-react";
 import ProductForm from "../components/Forms/ProductForm.jsx";
 
 const ProductsPage = () => {
-    const { getProducts, products, loading, deleteProduct, addProduct,editProduct } = useProductStore();
+    const { getProducts, products, loading, deleteProduct,editProduct } = useProductStore();
     const [editData, setEditData] = useState(null);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const ProductsPage = () => {
             {/* Left side */}
             <div className="flex-1 gap-5">
                 <h1 className="text-3xl leading-tight">Add New Product</h1>
-                <ProductForm addProduct={addProduct} />
+                <ProductForm  />
             </div>
 
             {/* Right side */}

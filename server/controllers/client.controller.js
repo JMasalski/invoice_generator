@@ -2,20 +2,18 @@ import {Client} from '../models/client.model.js';
 
 export const createClient = async (req, res) => {
     const id = req.user.id
-    const {name, email, companyName, taxId, address, bankAccount, phone} = req.body;
-    if (!name || !email || !companyName || !taxId || !address || !bankAccount || !phone) {
+    const {name, companyName, taxId, address, bankAccount} = req.body;
+    if (!name || !companyName || !taxId || !address || !bankAccount) {
         return res.status(400).json({message: "All fields are required"});
     }
     try {
         const client = await Client.create({
             userId: id,
             name,
-            email,
             companyName,
             taxId,
             address,
             bankAccount,
-            phone
         });
         res.status(201).json({
             success: true,

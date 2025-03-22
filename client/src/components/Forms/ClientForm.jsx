@@ -6,7 +6,6 @@ const ClientForm = () => {
     const {addClient, loading} = useClientStore();
     const [clientData, setClientData] = useState({
         name: "",
-        email: "",
         companyName: "",
         taxId: "",
         address: {
@@ -16,7 +15,6 @@ const ClientForm = () => {
             country: "",
         },
         bankAccount: "",
-        phone: ""
     })
     return (
         <form
@@ -34,26 +32,6 @@ const ClientForm = () => {
                     type="text"
                     value={clientData.name}
                     onChange={(e) => setClientData({...clientData, name: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
-                />
-            </div>
-            <div className=" flex flex-col mb-3">
-                <label htmlFor='email' className=" text-md fond-medium text-gray-800 font-semibold">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    value={clientData.email}
-                    onChange={(e) => setClientData({...clientData, email: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
-                />
-            </div>
-            <div className=" flex flex-col mb-3">
-                <label htmlFor='phone' className=" text-md fond-medium text-gray-800 font-semibold">Phone</label>
-                <input
-                    id="phone"
-                    type="phone"
-                    value={clientData.phone}
-                    onChange={(e) => setClientData({...clientData, phone: e.target.value})}
                     className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
                 />
             </div>

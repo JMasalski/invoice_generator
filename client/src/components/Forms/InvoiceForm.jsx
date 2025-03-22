@@ -9,7 +9,7 @@ const InvoiceForm = () => {
     const {authUser} = useAuthStore();
 
     const [selectedClient, setSelectedClient] = useState(null);
-    const [selectedProducts, setSelectedProducts] = useState([{id: '', quantity: 1, unit: ''}]);
+    const [selectedProducts, setSelectedProducts] = useState([{id: '', quantity: 1, unit: '', price: '', taxRate: ''}]);
 
     // Pobranie klientów i produktów przy załadowaniu komponentu
     useEffect(() => {
@@ -24,8 +24,24 @@ const InvoiceForm = () => {
     };
 
     const handleProductChange = (index, e) => {
+        const productId = e.target.value;
         const updatedProducts = [...selectedProducts];
-        updatedProducts[index].id = e.target.value;
+        updatedProducts[index].id = productId;
+
+        if (productId) {
+            const selectedProduct = products.find(p => p._id === productId);
+            if (selectedProduct) {
+                updatedProducts[index].price = selectedProduct.price;
+                updatedProducts[index].taxRate = selectedProduct.taxRate;
+            } else {
+                updatedProducts[index].price = '';
+                updatedProducts[index].taxRate = '';
+            }
+        } else {
+            updatedProducts[index].price = '';
+            updatedProducts[index].taxRate = '';
+        }
+
         setSelectedProducts(updatedProducts);
     };
 
@@ -43,7 +59,7 @@ const InvoiceForm = () => {
     };
 
     const addProductField = () => {
-        setSelectedProducts([...selectedProducts, {id: '', quantity: 1, unit: ''}]);
+        setSelectedProducts([...selectedProducts, {id: '', quantity: 1, unit: '', price: '', taxRate: ''}]);
     };
 
     const removeProductField = (index) => {
@@ -73,6 +89,15 @@ const InvoiceForm = () => {
         console.log('Invoice Data:', invoiceData);
     };
 
+
+    const calculateValue = (index) => {
+        const product = selectedProducts[index];
+        if (product.id && product.price && product.quantity) {
+            return (product.price * product.quantity).toFixed(2);
+        }
+        return '';
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             <h2 className="text-lg mb-4">Create Invoice</h2>
@@ -93,79 +118,96 @@ const InvoiceForm = () => {
 
             {/* Produkty */}
             {selectedProducts.map((product, index) => (
-                <div key={index} className="flex items-center gap-2 mb-2">
-                    <select
-                        value={product.id}
-                        onChange={(e) => handleProductChange(index, e)}
-                        className="border p-2 rounded w-60"
-                    >
-                        <option value="">Select Product</option>
-                        {products.map((prod) => (
-                            <option key={prod._id} value={prod._id}>
-                                {prod.name} - {prod.price} PLN
-                            </option>
-                        ))}
-                    </select>
+                <div key={index} className="mb-2">
+                    <div className="flex items-center gap-x-5 mb-1">
+                        <select
+                            value={product.id}
+                            onChange={(e) => handleProductChange(index, e)}
+                            className="border p-2 rounded w-60"
+                        >
+                            <option value="">Select Product</option>
+                            {products.map((prod) => (
+                                <option key={prod._id} value={prod._id}>
+                                    {prod.name} - {prod.price} PLN
+                                </option>
+                            ))}
+                        </select>
 
-                    <input
-                        type="number"
-                        min="0"
-                        value={product.quantity}
-                        onChange={(e) => handleQuantityChange(index, e)}
-                        className="border p-2 rounded w-20"
-                        placeholder="Qty"
-                    />
+                        <input
+                            type="number"
+                            min="0"
+                            value={product.quantity}
+                            onChange={(e) => handleQuantityChange(index, e)}
+                            className="border p-2 rounded w-20"
+                            placeholder="Qty"
+                        />
 
-                    {/* Wybór jednostki miary */}
-                    <select
-                        value={product.unit}
-                        onChange={(e) => handleUnitChange(index, e)}
-                        className="border p-2 rounded w-40"
-                    >
-                        <option value="">Select Unit</option>
-                        <optgroup label="Weight">
-                            <option value="kg">Kilogram (kg)</option>
-                            <option value="g">Gram (g)</option>
-                            <option value="lb">Pound (lb)</option>
-                            <option value="oz">Ounce (oz)</option>
-                            <option value="t">Ton (t)</option>
-                        </optgroup>
-                        <optgroup label="Length">
-                            <option value="m">Meter (m)</option>
-                            <option value="cm">Centimeter (cm)</option>
-                            <option value="mm">Millimeter (mm)</option>
-                            <option value="km">Kilometer (km)</option>
-                            <option value="in">Inch (in)</option>
-                            <option value="ft">Foot (ft)</option>
-                        </optgroup>
-                        <optgroup label="Volume">
-                            <option value="l">Liter (L)</option>
-                            <option value="ml">Milliliter (mL)</option>
-                            <option value="m3">Cubic meter (m³)</option>
-                            <option value="gal">Gallon (gal)</option>
-                            <option value="qt">Quart (qt)</option>
-                        </optgroup>
-                        <optgroup label="Time">
-                            <option value="h">Hour (h)</option>
-                            <option value="min">Minute (min)</option>
-                            <option value="s">Second (s)</option>
-                            <option value="day">Day</option>
-                            <option value="week">Week</option>
-                        </optgroup>
-                        <optgroup label="Count">
-                            <option value="pcs">Piece (pcs)</option>
-                            <option value="doz">Dozen (doz)</option>
-                            <option value="set">Set</option>
-                            <option value="pair">Pair</option>
-                        </optgroup>
-                    </select>
-                    <button
-                        type="button"
-                        onClick={() => removeProductField(index)}
-                        className="bg-red-500 text-white px-2 py-1 rounded"
-                    >
-                        Remove
-                    </button>
+                        {/* Wybór jednostki miary */}
+                        <select
+                            value={product.unit}
+                            onChange={(e) => handleUnitChange(index, e)}
+                            className="border p-2 rounded w-40"
+                        >
+                            <option value="">Select Unit</option>
+                            <optgroup label="Weight">
+                                <option value="kg">Kilogram (kg)</option>
+                                <option value="g">Gram (g)</option>
+                                <option value="lb">Pound (lb)</option>
+                                <option value="oz">Ounce (oz)</option>
+                                <option value="t">Ton (t)</option>
+                            </optgroup>
+                            <optgroup label="Length">
+                                <option value="m">Meter (m)</option>
+                                <option value="cm">Centimeter (cm)</option>
+                                <option value="mm">Millimeter (mm)</option>
+                                <option value="km">Kilometer (km)</option>
+                                <option value="in">Inch (in)</option>
+                                <option value="ft">Foot (ft)</option>
+                            </optgroup>
+                            <optgroup label="Volume">
+                                <option value="l">Liter (L)</option>
+                                <option value="ml">Milliliter (mL)</option>
+                                <option value="m3">Cubic meter (m³)</option>
+                                <option value="gal">Gallon (gal)</option>
+                                <option value="qt">Quart (qt)</option>
+                            </optgroup>
+                            <optgroup label="Time">
+                                <option value="h">Hour (h)</option>
+                                <option value="min">Minute (min)</option>
+                                <option value="s">Second (s)</option>
+                                <option value="day">Day</option>
+                                <option value="week">Week</option>
+                            </optgroup>
+                            <optgroup label="Count">
+                                <option value="pcs">Piece (pcs)</option>
+                                <option value="doz">Dozen (doz)</option>
+                                <option value="set">Set</option>
+                                <option value="pair">Pair</option>
+                            </optgroup>
+                        </select>
+                        {product.id && (
+                            <div className="flex text-sm gap-5 text-gray-700 font-semibold">
+                                <span>Net price: {product.price} PLN</span>
+                                <span>Tax rate: {product.taxRate}%</span>
+                                {product.quantity > 0 && (
+                                    <>
+                                        <span>Net value: {calculateValue(index)} PLN</span>
+                                        <span>Gross value: {calculateValue(index) *(1 + product.taxRate/100)} PLN</span>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                        <button
+                            type="button"
+                            onClick={() => removeProductField(index)}
+                            className="bg-red-500 text-white px-2 py-1 rounded"
+                        >
+                            Remove
+                        </button>
+                    </div>
+
+                    {/* Informacja o cenie i wartości */}
+
                 </div>
             ))}
 

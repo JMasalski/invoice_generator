@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-import productRoutes from "./routes/product.routes.js";
 import clientRoutes from "./routes/client.routes.js";
 import invoiceRoutes from "./routes/invoice.routes.js";
 
@@ -29,7 +28,7 @@ const PORT = process.env.PORT||3000 ;
 
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/users', userRoutes)
-app.use('/api/v1/product', productRoutes)
+
 app.use('/api/v1/client', clientRoutes)
 app.use('/api/v1/invoice', invoiceRoutes)
 

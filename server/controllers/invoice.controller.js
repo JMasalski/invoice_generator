@@ -1,22 +1,29 @@
 import {Invoice} from "../models/invoice.model.js";
-import {Product} from "../models/product.model.js";
+
 import {Client} from "../models/client.model.js";
 
 const generateInvoiceNumber = async (userId) => {
-    const lastInvoice = await Invoice.findOne({userId}).sort({ createdAt: -1 });
+    try {
+        const currentYear = new Date().getFullYear();
+        // Znajdź ostatnią fakturę użytkownika z bieżącego roku
+        const lastInvoice = await Invoice.findOne({ userId, invoiceNumber: { $regex: `^${currentYear}/` } })
+            .sort({ createdAt: -1 });
 
-    let newNumber;
-    const year = new Date().getFullYear();
-
-    if (lastInvoice) {
-        const lastNumber = parseInt(lastInvoice.invoiceNumber.split("/").pop(), 10);
-        newNumber = `${year}/${String(lastNumber + 1).padStart(3, "0")}`;
-    } else {
-        newNumber = `${year}/001`;
+        if (lastInvoice) {
+            const lastNumber = parseInt(lastInvoice.invoiceNumber.split('/')[1]);
+            const newNumber = lastNumber + 1;
+            return `${currentYear}/${String(newNumber).padStart(3, '3')}`;
+        } else {
+            return `${currentYear}/001`;
+        }
+    } catch (error) {
+        console.error('Error generating invoice number:', error);
+        return `${new Date().getFullYear()}/001`;
     }
-
-    return newNumber;
 };
+
+
+
 
 export const createInvoice = async (req, res) => {
     try {
@@ -27,28 +34,29 @@ export const createInvoice = async (req, res) => {
         const client = await Client.findById(clientId);
         if (!client) return res.status(404).json({ message: "Client not found" });
 
-        // Pobranie danych o produktach
-        const selectedProducts = await Promise.all(products.map(async (item) => {
-            const product = await Product.findById(item.productId);
-            if (!product) throw new Error(`Product not found: ${item.productId}`);
+        // Przetwarzanie produktów bezpośrednio z żądania
+        const selectedProducts = products.map((item) => {
+            const netPrice = item.price * item.quantity;
+            const taxAmount = netPrice * (item.taxRate / 100);
+            const grossPrice = netPrice + taxAmount;
 
             return {
-                productId: product._id,
-                productName: product.name,
+                productName: item.name,
                 quantity: item.quantity,
-                price: product.price, // Cena netto
-                taxRate: product.taxRate,
-                netPrice: product.price * item.quantity,
-                taxAmount: (product.price * item.quantity) * (product.taxRate / 100),
-                grossPrice: (product.price * item.quantity) + ((product.price * item.quantity) * (product.taxRate / 100))
+                price: item.price,  // Cena netto
+                taxRate: item.taxRate,
+                unit: item.unit,
+                netPrice,
+                taxAmount,
+                grossPrice
             };
-        }));
+        });
 
         // Obliczenie całkowitej kwoty faktury
         const totalAmount = selectedProducts.reduce((sum, item) => sum + item.grossPrice, 0);
         const invoiceNumber = await generateInvoiceNumber(userId);
 
-
+        // Utworzenie nowej faktury
         const invoice = new Invoice({
             userId,
             clientId: client._id,
@@ -71,6 +79,7 @@ export const createInvoice = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 export const getAllInvoices = async (req, res) => {
     const userId = req.user.id;

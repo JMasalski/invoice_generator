@@ -4,16 +4,15 @@ import {Client} from "../models/client.model.js";
 
 const generateInvoiceNumber = async (userId) => {
     try {
-        const currentYear = new Date().getFullYear();
-        // Znajdź ostatnią fakturę użytkownika z bieżącego roku
-        const lastInvoice = await Invoice.findOne({ userId, invoiceNumber: { $regex: `^${currentYear}/` } })
-            .sort({ createdAt: -1 });
+        const lastInvoice = await Invoice.findOne({ userId }).sort({ createdAt: -1 });
 
         if (lastInvoice) {
             const lastNumber = parseInt(lastInvoice.invoiceNumber.split('/')[1]);
             const newNumber = lastNumber + 1;
-            return `${currentYear}/${String(newNumber).padStart(3, '3')}`;
+            const currentYear = new Date().getFullYear();
+            return `${currentYear}/${String(newNumber).padStart(3, '0')}`;
         } else {
+            const currentYear = new Date().getFullYear();
             return `${currentYear}/001`;
         }
     } catch (error) {
@@ -27,8 +26,8 @@ const generateInvoiceNumber = async (userId) => {
 
 export const createInvoice = async (req, res) => {
     try {
-        const { clientId, products } = req.body;
-        const userId = req.user.id;
+        const { clientId, products, dueDate } = req.body;
+        const {id:userId,name,email, taxId,companyName, address, bankAccount} = req.user;
 
         // Pobranie danych klienta
         const client = await Client.findById(clientId);
@@ -59,7 +58,12 @@ export const createInvoice = async (req, res) => {
         // Utworzenie nowej faktury
         const invoice = new Invoice({
             userId,
-            clientId: client._id,
+            userName: name,
+            userEmail: email,
+            userTaxId: taxId,
+            userCompany: companyName,
+            userAddress: address,
+            userBankAccount: bankAccount,
             clientName: client.name,
             clientEmail: client.email,
             clientCompany: client.companyName,
@@ -68,7 +72,7 @@ export const createInvoice = async (req, res) => {
             totalAmount,
             invoiceNumber,
             issueDate: new Date(),
-            dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // +14 dni
+            dueDate: new Date(dueDate)
         });
 
         await invoice.save();

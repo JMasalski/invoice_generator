@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 export const useClientStore = create((set) => ({
     clients: [],
     loading: false,
+    selectedClient: null,
 
     addClient: async (clientData) => {
         try {
@@ -46,6 +47,7 @@ export const useClientStore = create((set) => ({
             console.log(e.response.data.message)
             toast.error(e.response?.data?.message || "Error deleting client")
         }
-    }
+    },
+    setSelectedClient: (client) => set({ selectedClient: client })
 
 }))

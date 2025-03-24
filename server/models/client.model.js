@@ -28,7 +28,7 @@ const clientSchema = new mongoose.Schema({
     },
     bankAccount: {
         type: String,
-        match: [/^\d{28}$/, "Bank account must be 28 digits"], // Walidacja dla polskiego IBAN
+        match: [/^[A-Z]{2}\d{26}$/, "Bank account must start with a country code and have 28 characters in total"], // Walidacja dla polskiego IBAN
     },
     createdAt:{
         type:Date,

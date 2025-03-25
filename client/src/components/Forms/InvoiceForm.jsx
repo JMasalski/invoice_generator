@@ -35,6 +35,13 @@ const InvoiceForm = () => {
         updatedProducts.splice(index, 1);
         setSelectedProducts(updatedProducts);
     }
+    const calculateValue = (index) =>{
+        const product = selectedProducts[index];
+        if(product.price){
+            return (product.price * product.quantity).toFixed(2)
+        }
+        return ""
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -71,17 +78,19 @@ const InvoiceForm = () => {
                 <h3 className="font-semibold text-lg">
                     Add products
                 </h3>
-                <div className="grid grid-cols-6 gap-2 my-2">
+                <div className="grid grid-cols-8 gap-2 my-2">
                     <div className="text-sm font-medium text-gray-700">Product Name</div>
                     <div className="text-sm font-medium text-gray-700">Quantity</div>
                     <div className="text-sm font-medium text-gray-700">Unit</div>
                     <div className="text-sm font-medium text-gray-700">Net price</div>
                     <div className="text-sm font-medium text-gray-700">Tax Rate %</div>
+                    <div className="text-sm font-medium text-gray-700">Net value</div>
+                    <div className="text-sm font-medium text-gray-700">Gross value</div>
 
                 </div>
 
                 {selectedProducts.map((product, index) => (
-                    <div key={index} className="grid grid-cols-6 gap-2 items-center mb-2">
+                    <div key={index} className="grid grid-cols-8 gap-2 items-center mb-2">
                         <input
                             type="text"
                             placeholder="Product Name"
@@ -150,6 +159,20 @@ const InvoiceForm = () => {
                             placeholder="Tax Rate %"
                             value={product.taxRate}
                             onChange={(e) => handleProductChange(index, "taxRate", Number(e.target.value))}
+                            className="border px-2 py-1 rounded w-full"
+                        />
+                        <input
+                            type="number"
+                            placeholder="Net value"
+                            value={calculateValue(index)}
+                            readOnly
+                            className="border px-2 py-1 rounded w-full"
+                        />
+                        <input
+                            type="number"
+                            placeholder="Gross value"
+                            value={(calculateValue(index) * (1+product.taxRate/100)).toFixed(2)}
+                            readOnly
                             className="border px-2 py-1 rounded w-full"
                         />
                         <button

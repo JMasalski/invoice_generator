@@ -4,20 +4,33 @@ import {Client} from "../models/client.model.js";
 
 const generateInvoiceNumber = async (userId) => {
     try {
-        const lastInvoice = await Invoice.findOne({ userId }).sort({ createdAt: -1 });
+        const currentYear = new Date().getFullYear();
+        let lastNumber = 0;
+
+        // Próbujemy znaleźć fakturę z najwyższym numerem w bieżącym roku
+        const lastInvoice = await Invoice.findOne({ userId })
+            .sort({ createdAt: -1 });  // Poszukujemy ostatniej faktury użytkownika
 
         if (lastInvoice) {
-            const lastNumber = parseInt(lastInvoice.invoiceNumber.split('/')[1]);
-            const newNumber = lastNumber + 1;
-            const currentYear = new Date().getFullYear();
-            return `${currentYear}/${String(newNumber).padStart(3, '0')}`;
-        } else {
-            const currentYear = new Date().getFullYear();
-            return `${currentYear}/001`;
+            lastNumber = parseInt(lastInvoice.invoiceNumber.split('/')[1]);
         }
+
+        // Rozpoczynamy generowanie numeru faktury, począwszy od 001
+        let newNumber = lastNumber + 1;
+        let invoiceNumber = `${currentYear}/${String(newNumber).padStart(3, '0')}`;
+
+        // Sprawdzamy, czy numer już istnieje w bazie danych
+        let existingInvoice = await Invoice.findOne({ invoiceNumber });
+        while (existingInvoice) {
+            newNumber++;
+            invoiceNumber = `${currentYear}/${String(newNumber).padStart(3, '0')}`;
+            existingInvoice = await Invoice.findOne({ invoiceNumber });
+        }
+
+        return invoiceNumber;
     } catch (error) {
         console.error('Error generating invoice number:', error);
-        return `${new Date().getFullYear()}/001`;
+        return `${new Date().getFullYear()}/001`;  // Domyślny numer
     }
 };
 
@@ -27,7 +40,7 @@ const generateInvoiceNumber = async (userId) => {
 export const createInvoice = async (req, res) => {
     try {
         const { clientId, products, dueDate } = req.body;
-        const {id:userId,name,email, taxId,companyName, address, bankAccount} = req.user;
+        const userId = req.user.id;
 
         // Pobranie danych klienta
         const client = await Client.findById(clientId);
@@ -35,12 +48,13 @@ export const createInvoice = async (req, res) => {
 
         // Przetwarzanie produktów bezpośrednio z żądania
         const selectedProducts = products.map((item) => {
+            // Przetwarzamy dane wprowadzone przez użytkownika
             const netPrice = item.price * item.quantity;
             const taxAmount = netPrice * (item.taxRate / 100);
             const grossPrice = netPrice + taxAmount;
 
             return {
-                productName: item.name,
+                productName: item.productName,  // Zmiana, teraz po prostu używamy productName przekazanego w żądaniu
                 quantity: item.quantity,
                 price: item.price,  // Cena netto
                 taxRate: item.taxRate,
@@ -57,17 +71,8 @@ export const createInvoice = async (req, res) => {
 
         // Utworzenie nowej faktury
         const invoice = new Invoice({
-            userId,
-            userName: name,
-            userEmail: email,
-            userTaxId: taxId,
-            userCompany: companyName,
-            userAddress: address,
-            userBankAccount: bankAccount,
-            clientName: client.name,
-            clientEmail: client.email,
-            clientCompany: client.companyName,
-            clientTaxId: client.taxId,
+            user: userId,
+            client: clientId,
             products: selectedProducts,
             totalAmount,
             invoiceNumber,
@@ -75,7 +80,10 @@ export const createInvoice = async (req, res) => {
             dueDate: new Date(dueDate)
         });
 
+        // Zapisanie faktury do bazy danych
         await invoice.save();
+
+        // Odpowiedź z sukcesem
         return res.status(201).json({ success: true, invoice });
 
     } catch (error) {
@@ -83,6 +91,9 @@ export const createInvoice = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+
+
+
 
 
 export const getAllInvoices = async (req, res) => {

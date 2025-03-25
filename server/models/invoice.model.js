@@ -2,36 +2,17 @@ import mongoose from 'mongoose';
 
 const invoiceSchema = new mongoose.Schema({
     user: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: true
-        },
-        name: { type: String, required: true },
-        taxId: { type: String, required: true },
-        company: { type: String, required: true },
-        address: {
-            street: { type: String, required: true },
-            postalCode: { type: String, required: true },
-            city: { type: String, required: true }
-        },
-        bankAccount: { type: String, required: true }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-
     client: {
-        name: { type: String },
-        company: { type: String },
-        taxId: { type: String },
-        address: {
-            street: { type: String },
-            postalCode: { type: String },
-            city: { type: String }
-        },
-        bankAccount: { type: String }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Client',
+        required: true
     },
-
     products: [{
-        productName: { type: String, required: true },
+        productName: { type: String },
         quantity: { type: Number, required: true, min: 0 },
         price: { type: Number, required: true, min: 0 },
         taxRate: { type: Number, required: true, min: 0, max: 100 },
@@ -40,20 +21,8 @@ const invoiceSchema = new mongoose.Schema({
         taxAmount: { type: Number, required: true },
         grossPrice: { type: Number, required: true }
     }],
-
-    totalAmount: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-
-    invoiceNumber: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true
-    },
-
+    totalAmount: { type: Number, required: true, min: 0 },
+    invoiceNumber:{type: String, required: true},
     issueDate: {
         type: Date,
         default: Date.now,

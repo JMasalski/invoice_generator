@@ -106,13 +106,6 @@ invoiceSchema.pre('save', function(next) {
     next();
 });
 
-// Opcjonalny hook do generowania numeru faktury
-invoiceSchema.pre('save', function(next) {
-    if (!this.invoiceNumber) {
-        // Prosty generator numeru faktury
-        this.invoiceNumber = `INV-${Date.now()}`;
-    }
-    next();
-});
+
 
 export const Invoice = mongoose.model('Invoice', invoiceSchema);

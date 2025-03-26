@@ -1,16 +1,22 @@
 import React, {useEffect, useState} from 'react'
 import {useClientStore} from "../../store/useClientStore.js";
+
+import {useInvoiceStore} from "../../store/useInvoiceStore.js";
 import {PlusIcon, TrashIcon} from "lucide-react";
+import toast from "react-hot-toast";
 
 const InvoiceForm = () => {
     const {fetchClient, clients, setSelectedClient, selectedClient} = useClientStore();
+    const {addInvoice} = useInvoiceStore();
+
     const [selectedProducts, setSelectedProducts] = useState([{
-        name: "",
+        productName: "",
         quantity: "",
         price: "",
         taxRate: "",
         unit: ""
     }])
+    const [dueDate, setDueDate] = useState("");
 
     useEffect(() => {
         fetchClient()
@@ -20,24 +26,22 @@ const InvoiceForm = () => {
         const client = clients.find(client => client._id === e.target.value)
         setSelectedClient(client)
     }
-
     const handleProductChange = (index, field, value) => {
         const updatedProducts = [...selectedProducts];
         updatedProducts[index][field] = value;
         setSelectedProducts(updatedProducts);
     };
-
     const addProductField = () => {
-        setSelectedProducts([...selectedProducts, {name: "", quantity: "", price: "", taxRate: "", unit: ""}])
+        setSelectedProducts([...selectedProducts, {productName: "", quantity: "", price: "", taxRate: "", unit: ""}])
     }
     const removeProductField = (index) => {
         const updatedProducts = [...selectedProducts];
         updatedProducts.splice(index, 1);
         setSelectedProducts(updatedProducts);
     }
-    const calculateValue = (index) =>{
+    const calculateValue = (index) => {
         const product = selectedProducts[index];
-        if(product.price){
+        if (product.price) {
             return (product.price * product.quantity).toFixed(2)
         }
         return ""
@@ -45,18 +49,30 @@ const InvoiceForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const {name, email, taxId, companyName, address, bankAccount} = selectedClient || {};
-        const invoiceData = {
-            clientName: name,
-            clientEmail: email,
-            clientCompany: companyName,
-            clientTaxId: taxId,
-            clientAddress: address,
-            clientBankAccount: bankAccount,
-            products: selectedProducts,
+        if (!selectedClient) {
+            toast.error("Select client");
+            return;
         }
-        console.log(invoiceData);
+        const hasValidProducts = selectedProducts.some(product =>
+            product.productName.trim() !== "" &&
+            product.quantity > 0 &&
+            product.price > 0
+        );
 
+        if (!hasValidProducts) {
+            toast.error("Please add a valid product with a name, quantity, and price");
+            return;
+        }
+
+        const {_id} = selectedClient;
+
+        const invoiceData = {
+            client: _id,
+            products: selectedProducts,
+            dueDate
+        }
+        console.log(invoiceData)
+        addInvoice(invoiceData);
     }
     return (
         <form
@@ -64,16 +80,41 @@ const InvoiceForm = () => {
             className="flex flex-col space-y-4 mt-4"
         >
             <h2 className="text-lg mb-4">Create Invoice</h2>
-            <select onChange={handleClientChange} className="w-fit">
-                <option value={null}>
-                    Select Client
-                </option>
-                {clients.map((client) => (
-                    <option key={client._id} value={client._id}>
-                        {client.name}
-                    </option>
-                ))}
-            </select>
+            <div className="flex space-x-2">
+                <div className="flex flex-col">
+                    <label htmlFor="clientPick" className="text-sm font-medium text-gray-700">
+                        Pick a client
+                    </label>
+                    <select
+                        onChange={handleClientChange}
+                        className="border border-gray-400 px-2 py-1 rounded h-10"
+                        name="clientPick"
+                        id="clientPick"
+                    >
+                        <option value={null}>Select Client</option>
+                        {clients.map((client) => (
+                            <option key={client._id} value={client._id}>
+                                {client.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="flex flex-col ">
+                    <label htmlFor="dueDate" className="text-sm font-medium text-gray-700">
+                        Due date
+                    </label>
+                    <input
+                        name="dueDate"
+                        id="dueDate"
+                        type="date"
+                        value={dueDate}
+                        onChange={(e) => setDueDate(e.target.value)}
+                        className="border border-gray-400 px-2 py-1  rounded h-10"
+                    />
+                </div>
+            </div>
+
+
             <div className="border border-gray-200  p-2 md:p-4 lg:p-6 rounded-lg relative">
                 <h3 className="font-semibold text-lg">
                     Add products
@@ -94,8 +135,8 @@ const InvoiceForm = () => {
                         <input
                             type="text"
                             placeholder="Product Name"
-                            value={product.name}
-                            onChange={(e) => handleProductChange(index, "name", e.target.value)}
+                            value={product.productName}
+                            onChange={(e) => handleProductChange(index, "productName", e.target.value)}
                             className="border px-2 py-1 rounded w-full"
                         />
                         <input
@@ -171,7 +212,7 @@ const InvoiceForm = () => {
                         <input
                             type="number"
                             placeholder="Gross value"
-                            value={(calculateValue(index) * (1+product.taxRate/100)).toFixed(2)}
+                            value={(calculateValue(index) * (1 + product.taxRate / 100)).toFixed(2)}
                             readOnly
                             className="border px-2 py-1 rounded w-full"
                         />

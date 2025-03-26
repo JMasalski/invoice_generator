@@ -39,24 +39,23 @@ const generateInvoiceNumber = async (userId) => {
 
 export const createInvoice = async (req, res) => {
     try {
-        const { clientId, products, dueDate } = req.body;
+        const { client, products, dueDate } = req.body;
         const userId = req.user.id;
 
         // Pobranie danych klienta
-        const client = await Client.findById(clientId);
-        if (!client) return res.status(404).json({ message: "Client not found" });
+        const clie = await Client.findById(client);
+        if (!clie) return res.status(404).json({ message: "Client not found" });
 
         // Przetwarzanie produktów bezpośrednio z żądania
         const selectedProducts = products.map((item) => {
-            // Przetwarzamy dane wprowadzone przez użytkownika
             const netPrice = item.price * item.quantity;
             const taxAmount = netPrice * (item.taxRate / 100);
             const grossPrice = netPrice + taxAmount;
 
             return {
-                productName: item.productName,  // Zmiana, teraz po prostu używamy productName przekazanego w żądaniu
+                productName: item.productName,
                 quantity: item.quantity,
-                price: item.price,  // Cena netto
+                price: item.price,
                 taxRate: item.taxRate,
                 unit: item.unit,
                 netPrice,
@@ -71,8 +70,8 @@ export const createInvoice = async (req, res) => {
 
         // Utworzenie nowej faktury
         const invoice = new Invoice({
-            user: userId,
-            client: clientId,
+            user:userId,
+            client,
             products: selectedProducts,
             totalAmount,
             invoiceNumber,

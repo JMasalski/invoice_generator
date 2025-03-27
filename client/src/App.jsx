@@ -33,6 +33,7 @@ function App() {
                     <Route path="/clients" element={<ClientsPage />} />
                 </Route>
                 <Route path="/auth" element={!authUser ? <AuthPage /> : <Navigate to="/" />} />
+                <Route path="/invoices/new" element={<InvoicePage />} />
                 <Route path="*" element={<Navigate to={authUser ? "/" : "/auth"} />} />
             </Routes>
             <Toaster/>

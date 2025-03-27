@@ -53,9 +53,8 @@ const invoiceSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Dodatkowa walidacja przed zapisem
+
 invoiceSchema.pre('save', function(next) {
-    // Sprawdzenie poprawności produktów
     if (this.products && this.products.length > 0) {
         const invalidProduct = this.products.find(
             product =>

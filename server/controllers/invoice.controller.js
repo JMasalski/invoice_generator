@@ -1,6 +1,6 @@
 import {Invoice} from "../models/invoice.model.js";
-
 import {Client} from "../models/client.model.js";
+
 
 const generateInvoiceNumber = async (userId) => {
     try {
@@ -39,7 +39,7 @@ const generateInvoiceNumber = async (userId) => {
 
 export const createInvoice = async (req, res) => {
     try {
-        const { client, products, dueDate } = req.body;
+        const { client, products, dueDate, paymentType } = req.body;
         const userId = req.user.id;
 
         // Pobranie danych klienta
@@ -76,7 +76,8 @@ export const createInvoice = async (req, res) => {
             totalAmount,
             invoiceNumber,
             issueDate: new Date(),
-            dueDate: new Date(dueDate)
+            dueDate: new Date(dueDate),
+            paymentType
         });
 
         // Zapisanie faktury do bazy danych

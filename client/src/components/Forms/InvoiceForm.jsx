@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {useClientStore} from "../../store/useClientStore.js";
-
 import {useInvoiceStore} from "../../store/useInvoiceStore.js";
 import {PlusIcon, TrashIcon} from "lucide-react";
 import toast from "react-hot-toast";
+import {PDFDownloadLink} from "@react-pdf/renderer";
+import InvoicePDF from "../InvoicePDF.jsx";
 
 const InvoiceForm = () => {
     const {fetchClient, clients, setSelectedClient, selectedClient} = useClientStore();
@@ -17,7 +18,7 @@ const InvoiceForm = () => {
         unit: ""
     }])
     const [dueDate, setDueDate] = useState("");
-
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("")
     useEffect(() => {
         fetchClient()
     }, [])
@@ -69,9 +70,10 @@ const InvoiceForm = () => {
         const invoiceData = {
             client: _id,
             products: selectedProducts,
-            dueDate
+            dueDate,
+            paymentType:selectedPaymentMethod,
         }
-        console.log(invoiceData)
+        // console.log(invoiceData)
         addInvoice(invoiceData);
     }
     return (
@@ -111,6 +113,29 @@ const InvoiceForm = () => {
                         onChange={(e) => setDueDate(e.target.value)}
                         className="border border-gray-400 px-2 py-1  rounded h-10"
                     />
+                </div>
+                <div className="flex flex-col ">
+                    <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700">
+                        Metoda płatności
+                    </label>
+                    <select
+                        id="paymentMethod"
+                        value={selectedPaymentMethod}
+                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                        className="border border-gray-400 px-2 py-1 rounded h-10"
+                    >
+                        <option value="">Wybierz metodę płatności</option>
+                        <option value="cash">Gotówka</option>
+                        <option value="card">Karta płatnicza</option>
+                        <option value="bank_transfer">Przelew bankowy</option>
+                        <option value="blik">BLIK</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="google_pay">Google Pay</option>
+                        <option value="apple_pay">Apple Pay</option>
+                        <option value="crypto">Kryptowaluty</option>
+                        <option value="check">Czek</option>
+                        <option value="direct_debit">Polecenie zapłaty</option>
+                    </select>
                 </div>
             </div>
 
@@ -253,6 +278,18 @@ const InvoiceForm = () => {
 
 
             <button type="submit" className="bg-blue-500 ">Submit</button>
+            <PDFDownloadLink
+                document={<InvoicePDF invoiceData={{
+                    clientName: selectedClient ? selectedClient.name : "",
+                    dueDate,
+                    products: selectedProducts,
+                    totalAmount: selectedProducts.reduce((sum, product) => sum + product.price * product.quantity * (1 + product.taxRate / 100), 0).toFixed(2),
+                    invoiceNumber: "1234", // Numer faktury
+                }} />}
+                fileName="invoice.pdf"
+            >
+                {({ loading }) => (loading ? 'Generowanie PDF...' : 'Pobierz fakturę PDF')}
+            </PDFDownloadLink>
         </form>
     )
 }

@@ -9,17 +9,18 @@ export const useInvoiceStore =create ((set) => ({
 
     addInvoice: async (invoiceData) => {
         try {
-            set({loading: true})
-            const res = await axiosInstance.post("/invoice/create-invoice", invoiceData)
-            const newInvoice = res.data.invoice
-            set(state => ({invoices: [...state.invoices, newInvoice]}))
-            toast.success("Invoice added successfully")
-            console.log(newInvoice)
+            set({loading: true});
+            const res = await axiosInstance.post("/invoice/create-invoice", invoiceData);
+            const newInvoice = res.data.invoice;
+            console.log(newInvoice);
+            set(state => ({invoices: [...state.invoices, newInvoice]}));
+            toast.success("Invoice added successfully");
+
         } catch (e) {
             console.log(e.response.data.message);
             toast.error(e.response?.data?.message || "Error adding invoice");
         } finally {
-            set({loading: false})
+            set({loading: false});
         }
     },
 

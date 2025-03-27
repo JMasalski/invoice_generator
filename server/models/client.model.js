@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import {validateNIP} from "../lib/validateNIP.js";
+
 
 const clientSchema = new mongoose.Schema({
     userId:{
@@ -9,16 +11,19 @@ const clientSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
-        minLength:[3,"Name must be at least 3 characters"],
-        maxLength:[50, "Name must be at most 50 characters"],
+        minLength:[3,"Nazwa musi zawierać co najmniej 3 znaki"],
+        maxLength:[50, "Nazwa musi zawierać co najwyżej 50 znaków"],
     },
     companyName: {
         type: String,
-        maxLength: [100, "Company name must be at most 100 characters"],
+        maxLength: [100, "Nazwa firmy musi zawierać co najwyżej 100 znaków"],
     },
     taxId: {
         type: String,
-        match: [/^\d{10}$/, "Tax ID must be exactly 10 digits"], // Walidacja NIP dla Polski
+        validate:{
+            validator:validateNIP,
+            message: 'Podany NIP jest niepoprawny',
+        }
     },
     address: {
         street: String,

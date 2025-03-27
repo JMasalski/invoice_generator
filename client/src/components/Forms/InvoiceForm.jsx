@@ -79,11 +79,11 @@ const InvoiceForm = () => {
             onSubmit={handleSubmit}
             className="flex flex-col space-y-4 mt-4"
         >
-            <h2 className="text-lg mb-4">Create Invoice</h2>
+            <h2 className="text-xl mb-4 font-semibold">Stwórz fakturę</h2>
             <div className="flex space-x-2">
                 <div className="flex flex-col">
                     <label htmlFor="clientPick" className="text-sm font-medium text-gray-700">
-                        Pick a client
+                        Wybierz klienta
                     </label>
                     <select
                         onChange={handleClientChange}
@@ -91,7 +91,7 @@ const InvoiceForm = () => {
                         name="clientPick"
                         id="clientPick"
                     >
-                        <option value={null}>Select Client</option>
+                        <option value={null}>Wybierz klienta</option>
                         {clients.map((client) => (
                             <option key={client._id} value={client._id}>
                                 {client.name}
@@ -101,7 +101,7 @@ const InvoiceForm = () => {
                 </div>
                 <div className="flex flex-col ">
                     <label htmlFor="dueDate" className="text-sm font-medium text-gray-700">
-                        Due date
+                        Data płatności
                     </label>
                     <input
                         name="dueDate"
@@ -117,16 +117,16 @@ const InvoiceForm = () => {
 
             <div className="border border-gray-200  p-2 md:p-4 lg:p-6 rounded-lg relative">
                 <h3 className="font-semibold text-lg">
-                    Add products
+                    Dodaj produkty
                 </h3>
                 <div className="grid grid-cols-8 gap-2 my-2">
-                    <div className="text-sm font-medium text-gray-700">Product Name</div>
-                    <div className="text-sm font-medium text-gray-700">Quantity</div>
-                    <div className="text-sm font-medium text-gray-700">Unit</div>
-                    <div className="text-sm font-medium text-gray-700">Net price</div>
-                    <div className="text-sm font-medium text-gray-700">Tax Rate %</div>
-                    <div className="text-sm font-medium text-gray-700">Net value</div>
-                    <div className="text-sm font-medium text-gray-700">Gross value</div>
+                    <div className="text-sm font-medium text-gray-700">Nazwa produktu</div>
+                    <div className="text-sm font-medium text-gray-700">Ilość</div>
+                    <div className="text-sm font-medium text-gray-700">Jednostka miary</div>
+                    <div className="text-sm font-medium text-gray-700">Cena netto</div>
+                    <div className="text-sm font-medium text-gray-700">VAT %</div>
+                    <div className="text-sm font-medium text-gray-700">Wartość netto</div>
+                    <div className="text-sm font-medium text-gray-700">Wartość brutto</div>
 
                 </div>
 
@@ -134,16 +134,16 @@ const InvoiceForm = () => {
                     <div key={index} className="grid grid-cols-8 gap-2 items-center mb-2">
                         <input
                             type="text"
-                            placeholder="Product Name"
+                            placeholder="Nazwa produktu"
                             value={product.productName}
                             onChange={(e) => handleProductChange(index, "productName", e.target.value)}
                             className="border px-2 py-1 rounded w-full"
                         />
                         <input
                             type="number"
-                            placeholder="Quantity"
-                            value={product.quantity}
-                            onChange={(e) => handleProductChange(index, "quantity", Number(e.target.value))}
+                            placeholder="Ilość"
+                            value={product.quantity || ''}
+                            onChange={(e) => handleProductChange(index, "quantity", e.target.value ? Number(e.target.value) : '')}
                             className="border px-2 py-1 rounded w-full"
                         />
                         <select
@@ -151,84 +151,104 @@ const InvoiceForm = () => {
                             onChange={(e) => handleProductChange(index, "unit", e.target.value)}
                             className="border p-2 py-1 rounded w-full"
                         >
-                            <option value="">Select Unit</option>
-                            <optgroup label="Weight">
+                            <option value="">Brak</option>
+                            <optgroup label="Waga">
                                 <option value="kg">Kilogram (kg)</option>
                                 <option value="g">Gram (g)</option>
-                                <option value="lb">Pound (lb)</option>
-                                <option value="oz">Ounce (oz)</option>
-                                <option value="t">Ton (t)</option>
+                                <option value="lb">Funt (lb)</option>
+                                <option value="oz">Uncja (oz)</option>
+                                <option value="t">Tona (t)</option>
                             </optgroup>
-                            <optgroup label="Length">
-                                <option value="m">Meter (m)</option>
-                                <option value="cm">Centimeter (cm)</option>
-                                <option value="mm">Millimeter (mm)</option>
-                                <option value="km">Kilometer (km)</option>
-                                <option value="in">Inch (in)</option>
-                                <option value="ft">Foot (ft)</option>
+                            <optgroup label="Długość">
+                                <option value="m">Metr (m)</option>
+                                <option value="cm">Centymetr (cm)</option>
+                                <option value="mm">Milimetr (mm)</option>
+                                <option value="km">Kilometr (km)</option>
+                                <option value="in">Cal (in)</option>
+                                <option value="ft">Stopa (ft)</option>
                             </optgroup>
-                            <optgroup label="Volume">
-                                <option value="l">Liter (L)</option>
-                                <option value="ml">Milliliter (mL)</option>
-                                <option value="m3">Cubic meter (m³)</option>
-                                <option value="gal">Gallon (gal)</option>
-                                <option value="qt">Quart (qt)</option>
+                            <optgroup label="Objętość">
+                                <option value="l">Litr (L)</option>
+                                <option value="ml">Mililitr (mL)</option>
+                                <option value="m3">Metr sześcienny (m³)</option>
+                                <option value="gal">Galon (gal)</option>
+                                <option value="qt">Kwarta (qt)</option>
                             </optgroup>
-                            <optgroup label="Time">
-                                <option value="h">Hour (h)</option>
-                                <option value="min">Minute (min)</option>
-                                <option value="s">Second (s)</option>
-                                <option value="day">Day</option>
-                                <option value="week">Week</option>
+                            <optgroup label="Czas">
+                                <option value="h">Godzina (h)</option>
+                                <option value="min">Minuta (min)</option>
+                                <option value="s">Sekunda (s)</option>
+                                <option value="day">Dzień</option>
+                                <option value="week">Tydzień</option>
                             </optgroup>
-                            <optgroup label="Count">
-                                <option value="pcs">Piece (pcs)</option>
-                                <option value="doz">Dozen (doz)</option>
-                                <option value="set">Set</option>
-                                <option value="pair">Pair</option>
+                            <optgroup label="Sztuki">
+                                <option value="szt">Sztuka (szt.)</option>
+                                <option value="doz">Tuzin (doz.)</option>
+                                <option value="zestaw">Zestaw</option>
+                                <option value="para">Para</option>
                             </optgroup>
                         </select>
+
                         <input
                             type="number"
-                            placeholder="Net price"
-                            value={product.price}
-                            onChange={(e) => handleProductChange(index, "price", Number(e.target.value))}
+                            placeholder="Cena netto"
+                            value={product.price || ''}
+                            onChange={(e) => handleProductChange(index, "price", e.target.value ? Number(e.target.value) : '')}
                             className="border px-2 py-1 rounded w-full"
                         />
                         <input
                             type="number"
-                            placeholder="Tax Rate %"
-                            value={product.taxRate}
-                            onChange={(e) => handleProductChange(index, "taxRate", Number(e.target.value))}
+                            placeholder="VAT %"
+                            value={product.taxRate || ''}
+                            onChange={(e) => handleProductChange(index, "taxRate", e.target.value ? Number(e.target.value) : '')}
                             className="border px-2 py-1 rounded w-full"
                         />
+
                         <input
                             type="number"
-                            placeholder="Net value"
+                            placeholder="Wartość netto"
                             value={calculateValue(index)}
                             readOnly
                             className="border px-2 py-1 rounded w-full"
                         />
                         <input
                             type="number"
-                            placeholder="Gross value"
+                            placeholder="Wartość brutto"
                             value={(calculateValue(index) * (1 + product.taxRate / 100)).toFixed(2)}
                             readOnly
                             className="border px-2 py-1 rounded w-full"
                         />
                         <button
                             onClick={() => removeProductField(index)}
-                            className="size-8 flex justify-center items-center rounded-md text-white bg-red-500">
+                            aria-label="Usuń produkt"
+                            className="size-8 flex justify-center items-center rounded-full text-white bg-[radial-gradient(circle,var(--tw-gradient-stops))] from-red-500 to-red-700">
                             <TrashIcon size={18}/>
                         </button>
                     </div>
                 ))}
                 <button
                     type="button"
+                    aria-label="Dodaj produkt"
                     onClick={addProductField}
                     className="bg-[radial-gradient(circle,var(--tw-gradient-stops))] from-green-500 to-green-700 text-white size-8  rounded-full mt-2 flex justify-center items-center absolute">
                     <PlusIcon size={18}/>
                 </button>
+            </div>
+
+            {/*Podsumowanie finansowe*/}
+            <div className="flex flex-col ml-auto space-y-5 w-full max-w-[300px]">
+                <div className="flex justify-between w-full border-b border-gray-400 pb-1">
+                    <p>Suma netto</p>
+                    <p>{selectedProducts.reduce((sum, product) => sum + product.price * product.quantity, 0).toFixed(2)} PLN</p>
+                </div>
+                <div className="flex justify-between w-full border-b border-gray-400 pb-1">
+                    <p>Suma VAT</p>
+                    <p>{(selectedProducts.reduce((sum, product) => sum + product.price * product.quantity * product.taxRate / 100, 0)).toFixed(2)} PLN</p>
+                </div>
+                <div className="flex justify-between w-full border-b border-gray-400 pb-1">
+                    <p>Suma brutto</p>
+                    <p>{selectedProducts.reduce((sum, product) => sum + product.price * product.quantity * (1 + product.taxRate / 100), 0).toFixed(2)} PLN</p>
+                </div>
             </div>
 
 

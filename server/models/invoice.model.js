@@ -16,7 +16,7 @@ const invoiceSchema = new mongoose.Schema({
         quantity: { type: Number, required: true, min: 0 },
         price: { type: Number, required: true, min: 0 },
         taxRate: { type: Number, required: true, min: 0, max: 100 },
-        unit: { type: String, required: true },
+        unit: { type: String },
         netPrice: { type: Number, required: true },
         taxAmount: { type: Number, required: true },
         grossPrice: { type: Number, required: true }
@@ -34,7 +34,6 @@ const invoiceSchema = new mongoose.Schema({
             message: 'Data wystawienia nie może być w przyszłości'
         }
     },
-
     dueDate: {
         type: Date,
         required: true,
@@ -45,6 +44,10 @@ const invoiceSchema = new mongoose.Schema({
             },
             message: 'Data płatności musi być późniejsza niż data wystawienia'
         }
+    },
+    paymentType: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true

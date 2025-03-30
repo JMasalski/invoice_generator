@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import {createInvoice, getAllInvoices, getInvoice} from "../controllers/invoice.controller.js";
+import {createInvoice, getAllInvoices, getInvoice, invoicePDF} from "../controllers/invoice.controller.js";
 import {protectRoute} from "../middleware/auth.js";
 
 const invoiceRouter = Router();
@@ -7,5 +7,6 @@ const invoiceRouter = Router();
 invoiceRouter.post('/create-invoice',protectRoute ,createInvoice);
 invoiceRouter.get('/get-invoices',protectRoute ,getAllInvoices);
 invoiceRouter.get('/get-invoice/:id',protectRoute ,getInvoice);
+invoiceRouter.get('/create-pdf/:id',protectRoute ,invoicePDF);
 
 export default invoiceRouter;

@@ -3,8 +3,7 @@ import {useClientStore} from "../../store/useClientStore.js";
 import {useInvoiceStore} from "../../store/useInvoiceStore.js";
 import {PlusIcon, TrashIcon} from "lucide-react";
 import toast from "react-hot-toast";
-import {PDFDownloadLink} from "@react-pdf/renderer";
-import InvoicePDF from "../InvoicePDF.jsx";
+
 
 const InvoiceForm = () => {
     const {fetchClient, clients, setSelectedClient, selectedClient} = useClientStore();
@@ -278,18 +277,7 @@ const InvoiceForm = () => {
 
 
             <button type="submit" className="bg-blue-500 ">Submit</button>
-            <PDFDownloadLink
-                document={<InvoicePDF invoiceData={{
-                    clientName: selectedClient ? selectedClient.name : "",
-                    dueDate,
-                    products: selectedProducts,
-                    totalAmount: selectedProducts.reduce((sum, product) => sum + product.price * product.quantity * (1 + product.taxRate / 100), 0).toFixed(2),
-                    invoiceNumber: "1234", // Numer faktury
-                }} />}
-                fileName="invoice.pdf"
-            >
-                {({ loading }) => (loading ? 'Generowanie PDF...' : 'Pobierz fakturę PDF')}
-            </PDFDownloadLink>
+
         </form>
     )
 }

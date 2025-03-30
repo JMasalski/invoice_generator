@@ -12,7 +12,7 @@ export const useInvoiceStore =create ((set) => ({
             set({loading: true});
             const res = await axiosInstance.post("/invoice/create-invoice", invoiceData);
             const newInvoice = res.data.invoice;
-            console.log(newInvoice);
+            console.log("Dane zwrotne",newInvoice);
             set(state => ({invoices: [...state.invoices, newInvoice]}));
             toast.success("Invoice added successfully");
 

@@ -21,14 +21,16 @@ const invoiceSchema = new mongoose.Schema({
         taxAmount: { type: Number, required: true },
         grossPrice: { type: Number, required: true }
     }],
-    totalAmount: { type: Number, required: true, min: 0 },
-    invoiceNumber:{type: String, required: true},
+    totalNetAmount: { type: Number, required: true, min: 0 }, // Suma wartości netto
+    totalTaxAmount: { type: Number, required: true, min: 0 }, // Suma VAT
+    totalGrossAmount: { type: Number, required: true, min: 0 }, // Suma brutto
+
+    invoiceNumber: { type: String, required: true },
     issueDate: {
         type: Date,
         default: Date.now,
         validate: {
             validator: function(value) {
-                // Sprawdzenie, czy data wystawienia nie jest w przyszłości
                 return value <= new Date();
             },
             message: 'Data wystawienia nie może być w przyszłości'
@@ -39,7 +41,6 @@ const invoiceSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function(value) {
-                // Sprawdzenie, czy data płatności jest po dacie wystawienia
                 return value > this.issueDate;
             },
             message: 'Data płatności musi być późniejsza niż data wystawienia'

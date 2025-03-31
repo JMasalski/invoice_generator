@@ -15,7 +15,7 @@ const app = express();
 
 app.use(cors(
     {
-        origin: 'https://invoice-generator-frontend-a8a9.onrender.com/',
+        origin: 'https://invoice-generator-frontend-a8a9.onrender.com',
         credentials: true
     }
 ))

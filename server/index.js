@@ -29,7 +29,7 @@ const app = express();
 //     credentials: true
 // }));
 //
-// app.use(cors());
+app.use(cors());
 // // Obsługa preflight requestów (OPTIONS)
 // app.options('*', (req, res) => {
 //     res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -38,12 +38,12 @@ const app = express();
 //     res.header("Access-Control-Allow-Credentials", "true");
 //     res.sendStatus(200);
 // });
-app.use(cors(
-    {
-        origin: ['http://localhost:5173', 'https://invoice-generator-sp2e.vercel.app'],
-        credentials: true
-    }
-))
+// app.use(cors(
+//     {
+//         origin: ['http://localhost:5173', 'https://invoice-generator-sp2e.vercel.app'],
+//         credentials: true
+//     }
+// ))
 app.use(cookieParser())
 app.use(express.json());
 dotenv.config();

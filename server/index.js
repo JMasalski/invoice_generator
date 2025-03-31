@@ -13,12 +13,13 @@ import invoiceRoutes from "./routes/invoice.routes.js";
 
 const app = express();
 
-app.use(cors(
-    {
-        origin: ['http://localhost:5173', 'https://invoice-generator-sp2e.vercel.app'],
-        credentials: true
-    }
-))
+app.use(cors());
+// app.use(cors(
+//     {
+//         origin: ['http://localhost:5173', 'https://invoice-generator-sp2e.vercel.app'],
+//         credentials: true
+//     }
+// ))
 app.use(cookieParser())
 app.use(express.json());
 dotenv.config();

@@ -29,7 +29,12 @@ const app = express();
 //     credentials: true
 // }));
 //
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://invoice-generator-sp2e.vercel.app'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 // // Obsługa preflight requestów (OPTIONS)
 // app.options('*', (req, res) => {
 //     res.header("Access-Control-Allow-Origin", req.headers.origin);

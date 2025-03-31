@@ -3,6 +3,7 @@ import {Client} from "../models/client.model.js";
 import {jsPDF} from "jspdf";
 import autoTable from "jspdf-autotable";
 import '../lib/DejaVuSans-normal.js'
+import amountToWords from "../lib/amountToWord.js";
 
 const generateInvoiceNumber = async (userId) => {
     try {
@@ -26,7 +27,7 @@ const generateInvoiceNumber = async (userId) => {
         let existingInvoice = await Invoice.findOne({invoiceNumber});
         while (existingInvoice) {
             newNumber++;
-            invoiceNumber = `${currentYear}/${String(newNumber).padStart(3, '0')}`;
+            invoiceNumber = `${String(newNumber).padStart(3, '0')}/${currentMont}-${currentYear}`;
             existingInvoice = await Invoice.findOne({invoiceNumber});
         }
 
@@ -227,7 +228,7 @@ export const invoicePDF = async (req, res) => {
     });
 
 
-    const spacingBetweenTables = 10; // odstęp 10mm
+    const spacingBetweenTables = 5; // odstęp 10mm
     const startYForSummaryTable = finalY + spacingBetweenTables;
 
 
@@ -267,6 +268,31 @@ export const invoicePDF = async (req, res) => {
         tableWidth: 120,
         margin: {left: 76}
     });
+
+
+    pdf.text(`Sposób zapłaty: ${(invoice.paymentType ? invoice.paymentType.replace(/_/g, " ") : "Brak danych")}`, 77, startYForSummaryTable + 20)
+
+    pdf.setFontSize(13)
+    const textX = 120;
+    const textY = startYForSummaryTable + 40;
+    pdf.setFillColor(200, 200, 200);
+    pdf.rect(10, textY - 7, 190, 13, "F");
+    pdf.setTextColor(0, 0, 0);
+    pdf.text(`Razem do zapłaty ${invoice.totalGrossAmount}`, textX, textY);
+
+    pdf.setFontSize(10)
+    pdf.text(`Kwota słownie: ${amountToWords(invoice.totalGrossAmount)}`, 100, textY + 20, {margin:{left:20}})
+
+
+
+    pdf.setFontSize(7)
+    pdf.text("Osoba upoważniona do odbioru", 30, 250);
+    pdf.line(20, 245, 80, 245); // Linia pod podpis
+
+
+    pdf.text("Osoba upoważniona do wystawienia", 130, 250);
+    pdf.line(120, 245, 180, 245); // Linia pod podpis
+
     //generate pdf as buffer
     const pdfBuffer = Buffer.from(pdf.output('arraybuffer'))
 

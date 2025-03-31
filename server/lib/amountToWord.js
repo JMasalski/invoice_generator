@@ -67,21 +67,21 @@ function amountToWords(amount) {
 
     // Forma słowa "złoty" w zależności od liczby
     function getZlotyForm(num) {
-        if (num === 1) return 'złoty';
+        if (num === 1) return 'PLN';
 
         const lastDigit = num % 10;
         const lastTwoDigits = num % 100;
 
         if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 12 || lastTwoDigits > 14)) {
-            return 'złote';
+            return 'PLN';
         }
 
-        return 'złotych';
+        return 'PLN';
     }
 
     // Jeśli liczba to zero
     if (wholePart === 0) {
-        return 'zero złotych ' + decimalPart + '/100';
+        return 'zero PLN ' + decimalPart + '/100';
     }
 
     // Rozdzielamy liczbę na bloki po 3 cyfry
@@ -123,7 +123,8 @@ function amountToWords(amount) {
     return result + ' ' + getZlotyForm(wholePart) + ' ' + decimalPart + '/100';
 }
 
-console.log(amountToWords(12.23)); // "dziesięć złotych 23/100"
-console.log(amountToWords(123.45)); // "sto dwadzieścia trzy złote 45/100"
-console.log(amountToWords(1234.56)); // "tysiąc dwieście trzydzieści cztery złote 56/100"
-console.log(amountToWords(1000000.00)); // "milion złotych 00/100"
+export default amountToWords;
+// console.log(amountToWords(12.23)); // "dziesięć złotych 23/100"
+// console.log(amountToWords(123.45)); // "sto dwadzieścia trzy złote 45/100"
+// console.log(amountToWords(1234.56)); // "tysiąc dwieście trzydzieści cztery złote 56/100"
+// console.log(amountToWords(1000000.00)); // "milion złotych 00/100"

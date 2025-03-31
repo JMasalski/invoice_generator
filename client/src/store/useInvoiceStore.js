@@ -16,6 +16,13 @@ export const useInvoiceStore =create ((set) => ({
             set(state => ({invoices: [...state.invoices, newInvoice]}));
             toast.success("Invoice added successfully");
 
+            const pdfRes = await axiosInstance.get(`/invoice/create-pdf/${newInvoice._id}`, {
+                responseType: "blob" // Pobiera dane jako plik binarny (PDF)
+            });
+            const pdfBlob = new Blob([pdfRes.data], { type: "application/pdf" });
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+            window.open(pdfUrl, "_blank", "noopener,noreferrer");
+            setTimeout(() => URL.revokeObjectURL(pdfUrl), 10000);
         } catch (e) {
             console.log(e.response.data.message);
             toast.error(e.response?.data?.message || "Error adding invoice");

@@ -123,17 +123,16 @@ const InvoiceForm = () => {
                         onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                         className="border border-gray-400 px-2 py-1 rounded h-10"
                     >
-                        <option value="">Wybierz metodę płatności</option>
-                        <option value="cash">Gotówka</option>
-                        <option value="card">Karta płatnicza</option>
-                        <option value="bank_transfer">Przelew bankowy</option>
+                        <option value="gotówka">Gotówka</option>
+                        <option value="karta">Karta płatnicza</option>
+                        <option value="przelew_bankowy">Przelew bankowy</option>
                         <option value="blik">BLIK</option>
                         <option value="paypal">PayPal</option>
                         <option value="google_pay">Google Pay</option>
                         <option value="apple_pay">Apple Pay</option>
-                        <option value="crypto">Kryptowaluty</option>
-                        <option value="check">Czek</option>
-                        <option value="direct_debit">Polecenie zapłaty</option>
+                        <option value="kryptowaluty">Kryptowaluty</option>
+                        <option value="czek">Czek</option>
+                        <option value="polecenie_zapłaty">Polecenie zapłaty</option>
                     </select>
                 </div>
             </div>
@@ -175,7 +174,7 @@ const InvoiceForm = () => {
                             onChange={(e) => handleProductChange(index, "unit", e.target.value)}
                             className="border p-2 py-1 rounded w-full"
                         >
-                            <option value="">Brak</option>
+                            <option value="-">Brak</option>
                             <optgroup label="Waga">
                                 <option value="kg">Kilogram (kg)</option>
                                 <option value="g">Gram (g)</option>

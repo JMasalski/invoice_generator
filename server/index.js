@@ -35,20 +35,10 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-// // Obsługa preflight requestów (OPTIONS)
-// app.options('*', (req, res) => {
-//     res.header("Access-Control-Allow-Origin", req.headers.origin);
-//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//     res.header("Access-Control-Allow-Credentials", "true");
-//     res.sendStatus(200);
-// });
-// app.use(cors(
-//     {
-//         origin: ['http://localhost:5173', 'https://invoice-generator-sp2e.vercel.app'],
-//         credentials: true
-//     }
-// ))
+
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'Server is working' });
+});
 app.use(cookieParser())
 app.use(express.json());
 dotenv.config();

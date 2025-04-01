@@ -36,7 +36,7 @@ const HomePage = () => {
 
     return (
         <div className="p-1 md:p-3 lg:p-6">
-            {isOnboardingComplete ? <Dashboard /> : <OnBoarding progress={progress} completedSteps={completedSteps} totalSteps={totalSteps} authUser={authUser} invoices={invoices} clients={clients} />}
+            {isOnboardingComplete ? <Dashboard /> : <OnBoarding progress={progress} authUser={authUser} invoices={invoices} clients={clients} />}
         </div>
     );
 };

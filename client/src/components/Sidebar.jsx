@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+
 import {useAuthStore} from "../store/useAuthStore.js";
 import {ArrowLeft, LogOut} from "lucide-react";
 import {useNavigate} from "react-router-dom";
@@ -46,7 +46,7 @@ const Sidebar = () => {
                 ))}
                 <li className="flex rounded-md p-2 cursor-pointer hover:bg-blue-700 hover:text-red-500 text-sm items-center gap-x-4" onClick={logout} >
                     <LogOut className="size-6"/>
-                    <span className={`${!open && 'hidden'}`}>Logout</span>
+                    <span className={`${!open && 'hidden'}`}>Wyloguj</span>
                 </li>
 
             </ul>

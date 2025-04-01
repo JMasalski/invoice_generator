@@ -12,45 +12,46 @@ const InvoicePage = () => {
             <div className="flex justify-around ">
                 <div>
                     <h1 className="text-xl font-semibold ">
-                        Issuer
+                        Sprzedawca
                     </h1>
                     <div className="text-gray-600">
-                        <p >
-                            {authUser.companyName}
-                        </p>
-                        <p >
-                            Tax ID: {authUser.taxId}
-                        </p>
-                        <p>
-                            IBAN:{authUser.bankAccount}
-                        </p>
-                        <p>
-                            {authUser.address.postalCode} {authUser.address.city}
-                        </p>
-                        <p>
-                            {authUser.address.street}
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <h1 className="text-xl font-semibold ">
-                        Recipient
-                    </h1>
-                    {selectedClient && (
-                        <div className="text-gray-600">
-                            <p>Company: {selectedClient.companyName}</p>
-                            <p>Tax ID: {selectedClient.taxId}</p>
-                            <p>IBAN: {selectedClient.bankAccount}</p>
-                            <p>{selectedClient.address.postalCode} {selectedClient.address.city}</p>
-                            <p>{selectedClient.address.street}</p>
-                        </div>
-                    )}
-
+                        {authUser.address &&
+                        authUser.taxId &&
+                        authUser.companyName &&
+                        authUser.phone &&
+                        authUser.bankAccount ? (
+                            <>
+                                <p>{authUser.companyName}</p>
+                                <p>NIP: {authUser.taxId}</p>
+                                <p>IBAN: {authUser.bankAccount}</p>
+                                <p>{authUser.address.postalCode} {authUser.address.city}</p>
+                                <p>{authUser.address?.street}</p>
+                            </>
+                        ) : (
+                            <p>Brak danych. Uzupełnij jest w <a className="text-blue-400" href={'/settings'}>ustawieniach</a>.</p>
+                        )
+                        }
                 </div>
             </div>
-            <div className="border-b-2 border-gray-200 my-5"/>
-            <InvoiceForm/>
+            <div>
+                <h1 className="text-xl font-semibold ">
+                    Nabywca
+                </h1>
+                {selectedClient && (
+                    <div className="text-gray-600">
+                        <p>{selectedClient.companyName}</p>
+                        <p>NIP: {selectedClient.taxId}</p>
+                        <p>IBAN: {selectedClient.bankAccount}</p>
+                        <p>{selectedClient.address.postalCode} {selectedClient.address.city}</p>
+                        <p>{selectedClient.address.street}</p>
+                    </div>
+                )}
+
+            </div>
         </div>
-    )
+    <div className="border-b-2 border-gray-200 my-5"/>
+    <InvoiceForm/>
+</div>
+)
 }
 export default InvoicePage

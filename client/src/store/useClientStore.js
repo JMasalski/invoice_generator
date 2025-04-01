@@ -24,7 +24,7 @@ export const useClientStore = create((set) => ({
         }
     },
 
-    fetchClient: async () =>{
+    fetchClients: async () =>{
         try{
             set({loading:true})
             const res = await axiosInstance.get("client/get-all-clients")

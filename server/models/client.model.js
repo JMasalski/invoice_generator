@@ -23,7 +23,8 @@ const clientSchema = new mongoose.Schema({
         validate:{
             validator:validateNIP,
             message: 'Podany NIP jest niepoprawny',
-        }
+        },
+        unique:true,
     },
     address: {
         street: String,

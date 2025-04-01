@@ -106,9 +106,9 @@ export const createInvoice = async (req, res) => {
 
 
 export const getAllInvoices = async (req, res) => {
-    const userId = req.user.id;
+    const user = req.user.id;
     try {
-        const invoices = await Invoice.find({userId});
+        const invoices = await Invoice.find({user});
         return res.status(200).json({success: true, invoices});
     } catch (e) {
         console.log("Error in get all invoices route", e);
@@ -117,10 +117,10 @@ export const getAllInvoices = async (req, res) => {
 }
 
 export const getInvoice = async (req, res) => {
-    const userId = req.user.id;
+    const user = req.user.id;
     const InvId = req.param.id
     try {
-        const invoices = await Invoice.findOne({userId, InvId});
+        const invoices = await Invoice.findOne({user, InvId});
         return res.status(200).json({success: true, invoices});
     } catch (e) {
         console.log("Error in get all invoices route", e);

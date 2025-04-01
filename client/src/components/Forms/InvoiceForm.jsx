@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 
 const InvoiceForm = () => {
-    const {fetchClient, clients, setSelectedClient, selectedClient} = useClientStore();
+    const {fetchClients, clients, setSelectedClient, selectedClient} = useClientStore();
     const {addInvoice} = useInvoiceStore();
 
     const [selectedProducts, setSelectedProducts] = useState([{
@@ -19,7 +19,7 @@ const InvoiceForm = () => {
     const [dueDate, setDueDate] = useState("");
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("")
     useEffect(() => {
-        fetchClient()
+        fetchClients()
     }, [])
 
     const handleClientChange = (e) => {

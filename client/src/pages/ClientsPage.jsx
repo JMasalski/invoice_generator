@@ -4,15 +4,15 @@ import {useClientStore} from "../store/useClientStore";
 import {FileX, Loader, Pencil} from "lucide-react";
 
 const ClientsPage = () => {
-    const {fetchClient, loading, clients,deleteClient} = useClientStore();
+    const {fetchClients, loading, clients,deleteClient} = useClientStore();
 
     const handleDeleteClient = (cid) => {
         deleteClient(cid)
     }
 
     useEffect(() => {
-        fetchClient()
-    }, [fetchClient])
+        fetchClients()
+    }, [fetchClients])
     return (
         <div className="flex flex-col md:flex-row gap-5 pt-1 md:pt-2 lg:pt-4">
             {/* Left side */}

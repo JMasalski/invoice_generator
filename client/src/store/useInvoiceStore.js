@@ -3,7 +3,7 @@ import {axiosInstance} from "../lib/axiosInstance.js";
 
 import toast from "react-hot-toast";
 
-export const useInvoiceStore =create ((set) => ({
+export const useInvoiceStore = create((set) => ({
     invoices: [],
     loading: false,
 
@@ -12,14 +12,14 @@ export const useInvoiceStore =create ((set) => ({
             set({loading: true});
             const res = await axiosInstance.post("/invoice/create-invoice", invoiceData);
             const newInvoice = res.data.invoice;
-            console.log("Dane zwrotne",newInvoice);
+            console.log("Dane zwrotne", newInvoice);
             set(state => ({invoices: [...state.invoices, newInvoice]}));
             toast.success("Invoice added successfully");
 
             const pdfRes = await axiosInstance.get(`/invoice/create-pdf/${newInvoice._id}`, {
                 responseType: "blob" // Pobiera dane jako plik binarny (PDF)
             });
-            const pdfBlob = new Blob([pdfRes.data], { type: "application/pdf" });
+            const pdfBlob = new Blob([pdfRes.data], {type: "application/pdf"});
             const pdfUrl = URL.createObjectURL(pdfBlob);
             window.open(pdfUrl, "_blank", "noopener,noreferrer");
             setTimeout(() => URL.revokeObjectURL(pdfUrl), 10000);
@@ -31,26 +31,29 @@ export const useInvoiceStore =create ((set) => ({
         }
     },
 
-    fetchInvoice: async () =>{
-        try{
-            set({loading:true})
-            const res = await axiosInstance.get("invoice/get-all-invoices")
-            set({invoices: res.data.invoices})
-            console.log(res.data.invoices)
-        }catch (e) {
+    fetchInvoices: async () => {
+        try {
+            set({loading: true});
+            const res = await axiosInstance.get("invoice/get-invoices");
 
-        }finally {
-            set({loading: false})
+            set(state => {
+                console.log("fetching invoices", res.data.invoices); // ✅ Poprawione logowanie
+                return {invoices: res.data.invoices};
+            });
+
+        } catch (e) {
+            console.error("Error fetching invoices:", e);
+        } finally {
+            set({loading: false});
         }
     },
 
-    deleteInvoice: async(invoiceId) =>{
-        try{
+    deleteInvoice: async (invoiceId) => {
+        try {
             const res = await axiosInstance.delete(`invoice/delete-invoice/${invoiceId}`)
             set({invoices: res.data.invoices});
             toast.success(res.data.message)
-        }
-        catch(e){
+        } catch (e) {
             console.log(e.response.data.message)
             toast.error(e.response?.data?.message || "Error deleting invoice")
         }

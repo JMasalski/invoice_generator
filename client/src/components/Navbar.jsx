@@ -1,11 +1,11 @@
 import {useAuthStore} from "../store/useAuthStore.js";
 import {LogOut, ChevronDown, Settings, FileText, PlusSquare, Menu,X} from "lucide-react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {sidebarLinks} from "../constants/sidebarLinks.js";
 
 import {useState} from "react";
 
-const Sidebar = () => {
+const Navbar = () => {
     const navigate = useNavigate()
     const {authUser} = useAuthStore();
     const [open, setOpen] = useState(false)
@@ -64,10 +64,10 @@ const Sidebar = () => {
                             Witaj {authUser.name}
                         </div>
                         <li>
-                            <a href={'/settings'}>
+                            <Link to={'/settings'}>
                                 <Settings/>
                                 Ustawienia
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a onClick={logout}>
@@ -114,8 +114,8 @@ const Sidebar = () => {
                                     <details>
                                         <summary>Faktury</summary>
                                         <ul>
-                                            <li><a href={'/invoices/new'}><PlusSquare/>Dodaj fakture</a></li>
-                                            <li><a href={'invoices'}><FileText/>Moje faktury</a></li>
+                                            <li><Link to={'/invoices/new'}><PlusSquare/>Dodaj fakture</Link></li>
+                                            <li><Link to={'/invoices'}><FileText/>Moje faktury</Link></li>
                                         </ul>
                                     </details>
                                 </li>
@@ -123,18 +123,19 @@ const Sidebar = () => {
                                     <details>
                                         <summary>Klienci</summary>
                                         <ul>
-                                            <li><a>Dodaj klienta</a></li>
-                                            <li><a>Moi klienci</a></li>
+                                            //TODO POPRAWIC PATH
+                                            <li><Link to={'/'}>Dodaj klienta</Link></li>
+                                            <li><Link to={'/'}>Moi klienci</Link></li>
                                         </ul>
                                     </details>
                                 </li>
 
                                 {/* Bottom items */}
                                 <li className="mt-auto border-t pt-2">
-                                    <a href={'/settings'}>
+                                    <Link to={'/settings'}>
                                         <Settings/>
                                         Ustawienia
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <a onClick={logout}>
@@ -153,4 +154,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default Navbar;

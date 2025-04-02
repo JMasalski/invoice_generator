@@ -25,18 +25,22 @@ function App() {
     return (
         <>
             <Routes>
+
                 <Route path="/" element={authUser ? <Layout /> : <Navigate to="/auth" />}>
                     <Route index element={<HomePage />} />
                     <Route path="/settings" element={<SettingsPage />} />
-                    {/*<Route path="/invoices" element={<InvoicePage />} />*/}
                     <Route path="/invoices/new" element={<InvoicePage />} />
+                    {/*<Route path="/invoices" element={<InvoicePage />} />*/}
                     <Route path="/clients" element={<ClientsPage />} />
                 </Route>
+
                 <Route path="/auth" element={!authUser ? <AuthPage /> : <Navigate to="/" />} />
+
                 <Route path="*" element={<Navigate to={authUser ? "/" : "/auth"} />} />
             </Routes>
-            <Toaster/>
+            <Toaster />
         </>
+
     );
 }
 

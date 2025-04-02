@@ -1,4 +1,4 @@
-import {Home, FileText, PlusSquare, Users, Settings} from "lucide-react";
+import {Home, FileText, PlusSquare, Users} from "lucide-react";
 
 
 export const sidebarLinks = [
@@ -7,6 +7,6 @@ export const sidebarLinks = [
     { name: "Nowa faktura", path: "/invoices/new", icon: PlusSquare },
     { name: "Klienci", path: "/clients", icon: Users },
 
-    { name: "Ustawienia", path: "/settings", icon: Settings, isBottom:true },
+
 
 ]

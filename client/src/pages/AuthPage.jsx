@@ -6,7 +6,7 @@ const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true)
     return (
         <div
-            className="min-h-screen font-mono flex items-center justify-around bg-gradient-to-b from-cyan-200/50 to-blue-200 p-5">
+            className="min-h-screen font-mono flex items-center justify-around bg-linear-to-b from-cyan-200/50 to-blue-200 p-5">
             <div className="w-full max-w-md text-center bg-white rounded-lg p-5">
                 <h2 className="text-xl text-black">
                     {isLogin ? "Log in to Billify" : "Sign up to Billify "}
@@ -29,7 +29,7 @@ const AuthPage = () => {
 
                 </div>
             </div>
-            <img src="authphoto.png" alt="authphoto" className="hidden lg:block"/>
+            <img src="authphoto.png" loading="lazy" alt="authphoto" className="hidden lg:block"/>
         </div>
     )
 }

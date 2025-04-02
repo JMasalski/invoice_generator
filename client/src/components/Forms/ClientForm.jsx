@@ -32,7 +32,7 @@ const ClientForm = () => {
                     type="text"
                     value={clientData.name}
                     onChange={(e) => setClientData({...clientData, name: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                 />
             </div>
             <h3 className="font-bold text-xl leading-tight">
@@ -47,7 +47,7 @@ const ClientForm = () => {
                     type="text"
                     value={clientData.companyName}
                     onChange={(e) => setClientData({...clientData, companyName: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                 />
             </div>
             <div className=" flex flex-col mb-3">
@@ -57,7 +57,7 @@ const ClientForm = () => {
                     type="text"
                     value={clientData.taxId}
                     onChange={(e) => setClientData({...clientData, taxId: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                 />
             </div>
             <div className=" flex flex-col mb-3">
@@ -68,7 +68,7 @@ const ClientForm = () => {
                     type="text"
                     value={clientData.bankAccount}
                     onChange={(e) => setClientData({...clientData, bankAccount: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                 />
             </div>
 
@@ -85,7 +85,7 @@ const ClientForm = () => {
                         type="text"
                         value={clientData.address.city}
                         onChange={(e) => setClientData({...clientData, address: {...clientData.address, city: e.target.value}})}
-                            className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                            className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                             />
                             </div>
                             <div className=" flex flex-col mb-3">
@@ -95,7 +95,7 @@ const ClientForm = () => {
                             type="text"
                             value={clientData.address.street}
                         onChange={(e) => setClientData({...clientData, address: {...clientData.address, street: e.target.value}})}
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                     />
                 </div>
                 <div className=" flex flex-col mb-3">
@@ -106,7 +106,7 @@ const ClientForm = () => {
                         type="text"
                         value={clientData.address.postalCode}
                         onChange={(e) => setClientData({...clientData, address: {...clientData.address, postalCode: e.target.value}})}
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                     />
                 </div>
                 <div className=" flex flex-col mb-3">
@@ -116,7 +116,7 @@ const ClientForm = () => {
                         type="text"
                         value={clientData.address.country}
                         onChange={(e) => setClientData({...clientData, address: {...clientData.address, country: e.target.value}})}
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                     />
                 </div>
             </div>

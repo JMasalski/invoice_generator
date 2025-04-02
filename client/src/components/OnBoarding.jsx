@@ -51,7 +51,7 @@ const OnBoarding = ({progress, authUser, invoices, clients}) => {
                 {/* Pasek postępu */}
                 <div className="relative w-full bg-gray-200 rounded-full h-4 my-4">
                     <div
-                        className="bg-gradient-to-r from-sky-300 to-sky-700 h-4 rounded-full transition-all duration-300"
+                        className="bg-linear-to-r from-sky-300 to-sky-700 h-4 rounded-full transition-all duration-300"
                         style={{width: `${progress}%`}}
                     ></div>
                 </div>

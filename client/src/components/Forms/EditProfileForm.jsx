@@ -31,7 +31,7 @@ const EditProfileForm = () => {
                     <input
                         id="name"
                         type="text"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.name}
                         onChange={(e) => setEditData({ ...editData, name: e.target.value })}
                     />
@@ -40,7 +40,7 @@ const EditProfileForm = () => {
                     <label htmlFor="country" className="block text-md font-medium text-gray-800">Country</label>
                     <input
                         id="country"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.address.country}
                         onChange={(e) => setEditData({ ...editData, address: { ...editData.address, country: e.target.value } })}
                     />
@@ -50,7 +50,7 @@ const EditProfileForm = () => {
                     <input
                         id="email"
                         type="email"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.email}
                         onChange={(e) => setEditData({ ...editData, email: e.target.value })}
                     />
@@ -59,7 +59,7 @@ const EditProfileForm = () => {
                     <label htmlFor="city" className="block text-md font-medium text-gray-800">City</label>
                     <input
                         id="city"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.address.city}
                         onChange={(e) => setEditData({ ...editData, address: { ...editData.address, city: e.target.value } })}
                     />
@@ -68,7 +68,7 @@ const EditProfileForm = () => {
                     <label htmlFor="companyName" className="block text-md font-medium text-gray-800">Company name</label>
                     <input
                         id="companyName"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.companyName}
                         onChange={(e) => setEditData({ ...editData, companyName: e.target.value })}
                     />
@@ -77,7 +77,7 @@ const EditProfileForm = () => {
                     <label htmlFor="street" className="block text-md font-medium text-gray-800">Street</label>
                     <input
                         id="street"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.address.street}
                         onChange={(e) => setEditData({ ...editData, address: { ...editData.address, street: e.target.value } })}
                     />
@@ -86,7 +86,7 @@ const EditProfileForm = () => {
                     <label htmlFor="taxId" className="block text-md font-medium text-gray-800">Tax ID</label>
                     <input
                         id="taxId"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.taxId}
                         onChange={(e) => setEditData({ ...editData, taxId: e.target.value })}
                     />
@@ -95,7 +95,7 @@ const EditProfileForm = () => {
                     <label htmlFor="postalCode" className="block text-md font-medium text-gray-800">Postal Code</label>
                     <input
                         id="postalCode"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.address.postalCode}
                         onChange={(e) => setEditData({ ...editData, address: { ...editData.address, postalCode: e.target.value } })}
                     />
@@ -104,7 +104,7 @@ const EditProfileForm = () => {
                     <label htmlFor="bankAccount" className="block text-md font-medium text-gray-800">Bank account</label>
                     <input
                         id="bankAccount"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.bankAccount}
                         onChange={(e) => setEditData({ ...editData, bankAccount: e.target.value })}
                     />
@@ -113,7 +113,7 @@ const EditProfileForm = () => {
                     <label htmlFor="phone" className="block text-md font-medium text-gray-800">Phone number</label>
                     <input
                         id="phone"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-none"
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                         value={editData.phone}
                         onChange={(e) => setEditData({ ...editData, phone: e.target.value })}
                     />

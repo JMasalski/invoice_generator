@@ -88,7 +88,7 @@ const InvoiceForm = () => {
                     </label>
                     <select
                         onChange={handleClientChange}
-                        className="border border-gray-400 px-2 py-1 rounded h-10"
+                        className="border border-gray-400 px-2 py-1 rounded-sm h-10"
                         name="clientPick"
                         id="clientPick"
                     >
@@ -110,7 +110,7 @@ const InvoiceForm = () => {
                         type="date"
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
-                        className="border border-gray-400 px-2 py-1  rounded h-10"
+                        className="border border-gray-400 px-2 py-1  rounded-sm h-10"
                     />
                 </div>
                 <div className="flex flex-col ">
@@ -121,7 +121,7 @@ const InvoiceForm = () => {
                         id="paymentMethod"
                         value={selectedPaymentMethod}
                         onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                        className="border border-gray-400 px-2 py-1 rounded h-10"
+                        className="border border-gray-400 px-2 py-1 rounded-sm h-10"
                     >
                         <option value="gotówka">Gotówka</option>
                         <option value="karta">Karta płatnicza</option>
@@ -160,19 +160,19 @@ const InvoiceForm = () => {
                             placeholder="Nazwa produktu"
                             value={product.productName}
                             onChange={(e) => handleProductChange(index, "productName", e.target.value)}
-                            className="border px-2 py-1 rounded w-full"
+                            className="border px-2 py-1 rounded-sm w-full"
                         />
                         <input
                             type="number"
                             placeholder="Ilość"
                             value={product.quantity || ''}
                             onChange={(e) => handleProductChange(index, "quantity", e.target.value ? Number(e.target.value) : '')}
-                            className="border px-2 py-1 rounded w-full"
+                            className="border px-2 py-1 rounded-sm w-full"
                         />
                         <select
                             value={product.unit}
                             onChange={(e) => handleProductChange(index, "unit", e.target.value)}
-                            className="border p-2 py-1 rounded w-full"
+                            className="border p-2 py-1 rounded-sm w-full"
                         >
                             <option value="-">Brak</option>
                             <optgroup label="Waga">
@@ -217,14 +217,14 @@ const InvoiceForm = () => {
                             placeholder="Cena netto"
                             value={product.price || ''}
                             onChange={(e) => handleProductChange(index, "price", e.target.value ? Number(e.target.value) : '')}
-                            className="border px-2 py-1 rounded w-full"
+                            className="border px-2 py-1 rounded-sm w-full"
                         />
                         <input
                             type="number"
                             placeholder="VAT %"
                             value={product.taxRate || ''}
                             onChange={(e) => handleProductChange(index, "taxRate", e.target.value ? Number(e.target.value) : '')}
-                            className="border px-2 py-1 rounded w-full"
+                            className="border px-2 py-1 rounded-sm w-full"
                         />
 
                         <input
@@ -232,14 +232,14 @@ const InvoiceForm = () => {
                             placeholder="Wartość netto"
                             value={calculateValue(index)}
                             readOnly
-                            className="border px-2 py-1 rounded w-full"
+                            className="border px-2 py-1 rounded-sm w-full"
                         />
                         <input
                             type="number"
                             placeholder="Wartość brutto"
                             value={(calculateValue(index) * (1 + product.taxRate / 100)).toFixed(2)}
                             readOnly
-                            className="border px-2 py-1 rounded w-full"
+                            className="border px-2 py-1 rounded-sm w-full"
                         />
                         <button
                             onClick={() => removeProductField(index)}

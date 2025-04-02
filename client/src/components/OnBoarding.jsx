@@ -25,12 +25,12 @@ const OnBoarding = ({progress, authUser, invoices, clients}) => {
     ];
 
     return (
-        <div className="w-1/2 mx-auto">
+        <div className="p-3 md:w-1/2 mx-auto">
             <div className="p-4 bg-white shadow-md rounded-md">
                 <div className="flex flex-col gap-3 my-3">
                     <h2 className="text-xl font-bold mb-3">Witaj {authUser.name.split(" ")[0]}</h2>
                     <p className="text-lg font-semibold">Bardzo nam miło że wybrałeś <span
-                        className="text-blue-500 ">Billify</span></p>
+                        className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">Billify</span></p>
                     <p>
                         Aby w pełni wykorzystać możliwości aplikacji, uzupełnij swoje dane oraz dodaj pierwszego
                         klienta.

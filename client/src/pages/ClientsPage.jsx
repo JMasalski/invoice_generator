@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {useClientStore} from "../store/useClientStore";
-import {FileX, Loader, Pencil} from "lucide-react";
+import {FileX, Loader, Pencil, UserRound} from "lucide-react";
 import EditClientModal from "../components/Forms/EditClientModal.jsx";
 
 const ClientsPage = () => {
@@ -30,7 +30,12 @@ const ClientsPage = () => {
 
     return (
         <div className="p-2 md:p-4 text-base-200 lg:p-6 ">
-            <h1 className="text-3xl leading-tight ">Twoi klienci</h1>
+            <div className="badge badge-info p-2 md:p-5 ">
+                <h1 className="text-lg md:text-3xl leading-tight flex items-center gap-x-4">
+                    <UserRound />
+                    Twoi klienci
+                </h1>
+            </div>
             <div className="flex gap-5 justify-center">
                 <div className="overflow-x-auto rounded-box border border-base-content/5 bg-slate-950 mt-5 ">
                     {loading && (

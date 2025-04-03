@@ -69,7 +69,7 @@ export const updateClient = async (req, res) => {
         if (!updatedClient) {
             return res.status(400).json({message: "Client not found or user not authorized"});
         }
-        res.status(200).json({success: true, updatedClient})
+        res.status(200).json({success: true,message:"Zaktualizowano klienta" ,updatedClient})
     } catch (e) {
         console.log("Error in update client route", e);
         res.status(500).json({message: "Internal server error"});

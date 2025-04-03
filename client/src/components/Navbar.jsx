@@ -16,12 +16,12 @@ const Navbar = () => {
         navigate(path)
     }
     const isActive = (path) => {
-        return location.pathname === path ? "border-b border-blue-200" : ""
+        return location.pathname === path ? "border-b border-indigo-400" : ""
     }
 
     const {logout} = useAuthStore()
     return (
-        <nav className="w-full max-w-screen h-24 flex items-center justify-between p-3  md:p-6 lg:p-9 text-white border-b border-blue-200">
+        <nav className="w-full max-w-screen h-24 flex items-center justify-between p-3  md:p-6 lg:p-9 text-white ">
             <div className="flex  items-center cursor-pointer" onClick={() => handleNav('/')}>
                 <img src="logo.png" alt="logo" className="size-12 md:hidden"/>
                 <h1 className="hidden py-2 md:block line text-4xl font-semibold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
@@ -33,7 +33,7 @@ const Navbar = () => {
                 {sidebarLinks.map((link) => (
                     <li
                         key={link.name}
-                        className={`flex rounded-md p-2 cursor-pointer hover:bg-blue-200 hover:text-black text-md gap-x-4 ${isActive(link.path)}
+                        className={`flex rounded-md p-2 cursor-pointer hover:bg-indigo-400 hover:text-black text-md gap-x-4 ${isActive(link.path)}
                         }`}
                         onClick={() => handleNav(link.path)}
                     >
@@ -124,8 +124,8 @@ const Navbar = () => {
                                         <summary>Klienci</summary>
                                         <ul>
                                             //TODO POPRAWIC PATH
-                                            <li><Link to={'/'}>Dodaj klienta</Link></li>
-                                            <li><Link to={'/'}>Moi klienci</Link></li>
+                                            <li><Link to={'/clients/add'}>Dodaj klienta</Link></li>
+                                            <li><Link to={'/clients'}>Moi klienci</Link></li>
                                         </ul>
                                     </details>
                                 </li>

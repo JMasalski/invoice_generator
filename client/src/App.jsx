@@ -8,6 +8,7 @@ import Layout from "./components/Layout.jsx";
 import SettingsPage from "./pages/SettingsPage.jsx";
 import InvoicePage from "./pages/InvoicePage.jsx";
 import ClientsPage from "./pages/ClientsPage.jsx";
+import ClientForm  from "./pages/ClientForm.jsx";
 
 function App() {
     const {checkingAuth, authUser, checkAuth} = useAuthStore();
@@ -32,6 +33,7 @@ function App() {
                     <Route path="/invoices/new" element={<InvoicePage />} />
                     {/*<Route path="/invoices" element={<InvoicePage />} />*/}
                     <Route path="/clients" element={<ClientsPage />} />
+                    <Route path="/clients/add" element={<ClientForm />} />
                 </Route>
 
                 <Route path="/auth" element={!authUser ? <AuthPage /> : <Navigate to="/" />} />

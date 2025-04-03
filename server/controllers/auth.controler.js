@@ -55,7 +55,7 @@ export const signUp = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "None",
-            partitioned: true
+
         })
 
 
@@ -104,7 +104,6 @@ export const signIn = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite:"None",
-            partitioned: true
         })
 
         return res.status(200).json({

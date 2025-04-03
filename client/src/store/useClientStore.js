@@ -48,6 +48,25 @@ export const useClientStore = create((set) => ({
             toast.error(e.response?.data?.message || "Error deleting client")
         }
     },
+    editClient: async (clientData,cid) => {
+        try {
+            set({loading: true})
+            const res = await axiosInstance.put(`client/update-client/${cid}`, clientData)
+            console.log(res.data);
+            const updatedClient = res.data.updatedClient
+            set(state => ({
+                clients: state.clients.map(client => client._id === cid ? updatedClient : client),
+            }))
+            toast.success(res.data.message)
+        } catch (e) {
+            console.log(e.response.data.message);
+            toast.error(e.response?.data?.message || "Error updating product");
+        } finally {
+            set({loading: false})
+        }
+    },
+
+
     setSelectedClient: (client) => set({ selectedClient: client })
 
 }))

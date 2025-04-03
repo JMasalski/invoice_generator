@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useClientStore} from '../../store/useClientStore'
+import {useClientStore} from '../store/useClientStore.js'
 import {LoaderCircle, Plus} from "lucide-react";
 
 const ClientForm = () => {
@@ -84,17 +84,23 @@ const ClientForm = () => {
                         id="city"
                         type="text"
                         value={clientData.address.city}
-                        onChange={(e) => setClientData({...clientData, address: {...clientData.address, city: e.target.value}})}
-                            className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
-                            />
-                            </div>
-                            <div className=" flex flex-col mb-3">
-                            <label htmlFor='street' className=" text-md fond-medium text-gray-800 font-semibold">Street</label>
-                            <input
-                            id="street"
-                            type="text"
-                            value={clientData.address.street}
-                        onChange={(e) => setClientData({...clientData, address: {...clientData.address, street: e.target.value}})}
+                        onChange={(e) => setClientData({
+                            ...clientData,
+                            address: {...clientData.address, city: e.target.value}
+                        })}
+                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                    />
+                </div>
+                <div className=" flex flex-col mb-3">
+                    <label htmlFor='street' className=" text-md fond-medium text-gray-800 font-semibold">Street</label>
+                    <input
+                        id="street"
+                        type="text"
+                        value={clientData.address.street}
+                        onChange={(e) => setClientData({
+                            ...clientData,
+                            address: {...clientData.address, street: e.target.value}
+                        })}
                         className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                     />
                 </div>
@@ -105,7 +111,10 @@ const ClientForm = () => {
                         id="postalCode"
                         type="text"
                         value={clientData.address.postalCode}
-                        onChange={(e) => setClientData({...clientData, address: {...clientData.address, postalCode: e.target.value}})}
+                        onChange={(e) => setClientData({
+                            ...clientData,
+                            address: {...clientData.address, postalCode: e.target.value}
+                        })}
                         className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                     />
                 </div>
@@ -115,7 +124,10 @@ const ClientForm = () => {
                         id="taxId"
                         type="text"
                         value={clientData.address.country}
-                        onChange={(e) => setClientData({...clientData, address: {...clientData.address, country: e.target.value}})}
+                        onChange={(e) => setClientData({
+                            ...clientData,
+                            address: {...clientData.address, country: e.target.value}
+                        })}
                         className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
                     />
                 </div>
@@ -128,6 +140,8 @@ const ClientForm = () => {
                 {loading ? <LoaderCircle className="animate-spin"/> : <Plus/>}
             </button>
         </form>
-)
+    )
 }
+
+
 export default ClientForm

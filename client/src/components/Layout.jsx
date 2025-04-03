@@ -1,17 +1,15 @@
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import Navbar from "./Navbar.jsx";
-
 
 
 const Layout = () => {
 
 
     return (
-        <div className="min-h-screen bg-gray-800">
-            <Navbar />
-                <div className="mt-4">
-                    <Outlet />
-                </div>
+        <div className="min-h-screen bg-slate-900">
+            <Navbar/>
+                <div className="divider divider-accent"/>
+                <Outlet/>
         </div>
     );
 };

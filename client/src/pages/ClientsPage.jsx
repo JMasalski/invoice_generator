@@ -1,10 +1,24 @@
-import React, {useEffect} from 'react'
-import ClientForm from "../components/Forms/ClientForm";
+import React, {useEffect, useState} from 'react'
+
 import {useClientStore} from "../store/useClientStore";
 import {FileX, Loader, Pencil} from "lucide-react";
+import EditClientModal from "../components/Forms/EditClientModal.jsx";
 
 const ClientsPage = () => {
-    const {fetchClients, loading, clients,deleteClient} = useClientStore();
+    const {fetchClients, loading, clients, deleteClient} = useClientStore();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedClient, setSelectedClient] = useState(null); // Dodano brakujący stan
+
+    const openEditModal = (client) => {
+        setSelectedClient(client);
+        setIsModalOpen(true);
+        document.getElementById('edit_client_modal').showModal();
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        document.getElementById('edit_client_modal').close();
+    };
 
     const handleDeleteClient = (cid) => {
         deleteClient(cid)
@@ -13,68 +27,64 @@ const ClientsPage = () => {
     useEffect(() => {
         fetchClients()
     }, [fetchClients])
+
     return (
-        <div className="flex flex-col md:flex-row gap-5 pt-1 md:pt-2 lg:pt-4">
-            {/* Left side */}
-            <div className="flex-1 gap-5">
-                <h1 className="text-3xl leading-tight">Add New Client</h1>
-                <ClientForm/>
-            </div>
-            {/* Right side */}
-            <div>
-                <h1 className="text-3xl leading-tight">Your Clients</h1>
-                <div className="flex flex-1 gap-5">
-                    <div className="mt-4 overflow-auto">
-                        {loading && (
-                            <div
-                                className="absolute inset-0 flex items-center justify-center bg-gray-50 bg-opacity-70 z-50">
-                                <Loader className="animate-spin text-blue-500" size={48}/>
-                            </div>
-                        )}
-                        <table className="table-auto border-separate border-spacing-y-2">
-                            <thead>
-                            <tr>
-                                <th className="px-4 py-2 border-b-2">Name</th>
-                                <th className="px-4 py-2 border-b-2">Email</th>
-                                <th className="px-4 py-2 border-b-2">Company Name</th>
-                                <th className="px-4 py-2 border-b-2">Tax ID</th>
-                                <th className="px-4 py-2 border-b-2">Address</th>
-                                <th className="px-4 py-2 border-b-2">Bank Account</th>
-                                <th className="px-4 py-2 border-b-2">Phone</th>
-                                <th className="px-4 py-2 border-b-2">Actions</th>
+        <div className="p-2 md:p-4 text-base-200 lg:p-6 ">
+            <h1 className="text-3xl leading-tight ">Twoi klienci</h1>
+            <div className="flex gap-5 justify-center">
+                <div className="overflow-x-auto rounded-box border border-base-content/5 bg-slate-950 mt-5 ">
+                    {loading && (
+                        <div
+                            className="absolute inset-0 flex items-center justify-center bg-gray-50 bg-opacity-70 z-50">
+                            <Loader className="animate-spin text-blue-500" size={48}/>
+                        </div>
+                    )}
+                    <table className="table">
+                        <thead className="text-white">
+                        <tr>
+                            <th className="px-4 py-2">Imię</th>
+                            <th className="px-4 py-2">Email</th>
+                            <th className="px-4 py-2">Company Name</th>
+                            <th className="px-4 py-2">Tax ID</th>
+                            <th className="px-4 py-2">Address</th>
+                            <th className="px-4 py-2">Phone</th>
+                            <th className="px-4 py-2">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {clients.map((client) => (
+                            <tr key={client.id}>
+                                <td className="px-4 py-2 ">{client.name}</td>
+                                <td className="px-4 py-2 ">{client.email}</td>
+                                <td className="px-4 py-2 ">{client.companyName}</td>
+                                <td className="px-4 py-2 ">{client.taxId}</td>
+                                <td className="px-4 py-2 ">{client.address.city}, {client.address.street}</td>
+                                <td className="px-4 py-2 ">{client.phone}</td>
+                                <td className="px-4 py-2 flex space-x-3">
+                                    <button
+                                        className="bg-indigo-400 p-2 text-white rounded-md cursor-pointer"
+                                        onClick={() => openEditModal(client)}
+                                    >
+                                        <Pencil size={15}/>
+                                    </button>
+                                    <button
+                                        className="bg-pink-400 p-2 text-white rounded-md cursor-pointer"
+                                        onClick={() => handleDeleteClient(client._id)}
+                                    >
+                                        <FileX size={15}/>
+                                    </button>
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            {clients.map((client) => (
-                                <tr key={client.id}>
-                                    <td className="px-4 py-2 border-b">{client.name}</td>
-                                    <td className="px-4 py-2 border-b">{client.email}</td>
-                                    <td className="px-4 py-2 border-b">{client.companyName}</td>
-                                    <td className="px-4 py-2 border-b">{client.taxId}</td>
-                                    <td className="px-4 py-2 border-b">{client.address.city}</td>
-                                    <td className="px-4 py-2 border-b">{client.bankAccount}</td>
-                                    <td className="px-4 py-2 border-b">{client.phone}</td>
-                                    <td className="px-4 py-2 flex space-x-3">
-                                        <button
-                                            className="bg-blue-500 p-2 text-white rounded-md"
-                                            // onClick={() => openEditModal(product)}
-                                        >
-                                            <Pencil size={15}/>
-                                        </button>
-                                        <button
-                                            className="bg-red-500 p-2 text-white rounded-md"
-                                            onClick={() => handleDeleteClient(client._id)}
-                                        >
-                                            <FileX size={15}/>
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <EditClientModal
+                isOpen={isModalOpen}
+                client={selectedClient}
+                onClose={closeModal}
+            />
         </div>
     )
 }

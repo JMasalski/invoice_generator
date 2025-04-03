@@ -53,9 +53,9 @@ export const signUp = async (req, res) => {
         res.cookie("jwt", token, {
             maxAge: 24 * 60 * 60 * 1000,
             httpOnly: true,
-            sameSite: "None",
             secure: true,
-            domain: ".onrender.com"
+            sameSite: "None",
+            partitioned: true
         })
 
 
@@ -102,9 +102,9 @@ export const signIn = async (req, res) => {
         res.cookie("jwt", token, {
             maxAge: 24 * 60 * 60 * 1000,
             httpOnly: true,
-            sameSite:"None",
             secure: true,
-            domain: ".onrender.com"
+            sameSite:"None",
+            partitioned: true
         })
 
         return res.status(200).json({

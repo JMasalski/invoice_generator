@@ -53,7 +53,7 @@ export const signUp = async (req, res) => {
         res.cookie("jwt", token, {
             maxAge: 24 * 60 * 60 * 1000,
             httpOnly: true,
-            sameSite: "None",
+            sameSite: "lax",
             secure: true,
         })
 
@@ -101,7 +101,7 @@ export const signIn = async (req, res) => {
         res.cookie("jwt", token, {
             maxAge: 24 * 60 * 60 * 1000,
             httpOnly: true,
-            sameSite: "None",
+            sameSite:"lax",
             secure: true,
         })
 

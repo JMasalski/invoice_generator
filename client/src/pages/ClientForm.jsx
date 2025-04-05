@@ -19,67 +19,70 @@ const ClientForm = () => {
     return (
         <form
             onSubmit={() => addClient(clientData)}
-            className="mt-5"
+            className="text-white p-2 md:p-4 lg:p-5"
         >
             <h3 className="font-bold text-xl leading-tight">
-                Personal information
+                Dane personalne
             </h3>
             <div className="border-b-2 border-gray-400 mb-5"/>
             <div className=" flex flex-col mb-3">
-                <label htmlFor='name' className=" text-md fond-medium text-gray-800 font-semibold">Name</label>
-                <input
-                    id="name"
-                    type="text"
-                    value={clientData.name}
-                    onChange={(e) => setClientData({...clientData, name: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
-                />
+                <label htmlFor='name' className=" text-md fond-medium  font-semibold">Imię i nazwisko</label>
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        name="name"
+                        value={clientData.name}
+                        onChange={(e) => setClientData({...clientData, name: e.target.value})}
+                        className="input input-bordered border-indigo-400 bg-slate-950 focus:ring-2 focus:ring-teal-400  focus:outline-none w-full"
+                    />
+                </div>
+
             </div>
             <h3 className="font-bold text-xl leading-tight">
-                Company information
+                Informacje o firmie
             </h3>
             <div className="border-b-2 border-gray-400 mb-5"/>
-            <div className=" flex flex-col mb-3">
-                <label htmlFor='companyName' className=" text-md fond-medium text-gray-800 font-semibold">Company
-                    name</label>
-                <input
-                    id="companyName"
-                    type="text"
-                    value={clientData.companyName}
-                    onChange={(e) => setClientData({...clientData, companyName: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
-                />
-            </div>
-            <div className=" flex flex-col mb-3">
-                <label htmlFor='taxId' className=" text-md fond-medium text-gray-800 font-semibold">Tax id</label>
-                <input
-                    id="taxId"
-                    type="text"
-                    value={clientData.taxId}
-                    onChange={(e) => setClientData({...clientData, taxId: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
-                />
-            </div>
-            <div className=" flex flex-col mb-3">
-                <label htmlFor='bankAccount' className=" text-md fond-medium text-gray-800 font-semibold">IBAN
-                    code</label>
-                <input
-                    id="bankAccount"
-                    type="text"
-                    value={clientData.bankAccount}
-                    onChange={(e) => setClientData({...clientData, bankAccount: e.target.value})}
-                    className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
-                />
+            <div className="flex justify-between gap-x-4">
+                <div className=" flex flex-col mb-3 flex-1">
+                    <label htmlFor='companyName' className=" text-md fond-medium  font-semibold">Nazwa firmy</label>
+                    <input
+                        id="companyName"
+                        type="text"
+                        value={clientData.companyName}
+                        onChange={(e) => setClientData({...clientData, companyName: e.target.value})}
+                        className="w-full input input-bordered border-indigo-400 bg-slate-950 focus:ring-2 focus:ring-teal-400  focus:outline-none"
+                    />
+                </div>
+                <div className="flex flex-col mb-3 flex-1">
+                    <label htmlFor='taxId' className=" text-md fond-medium  font-semibold">NIP</label>
+                    <input
+                        id="taxId"
+                        type="text"
+                        value={clientData.taxId}
+                        onChange={(e) => setClientData({...clientData, taxId: e.target.value})}
+                        className="w-full input input-bordered border-indigo-400 bg-slate-950 focus:ring-2 focus:ring-teal-400  focus:outline-none"
+                    />
+                </div>
+                <div className=" flex flex-col mb-3 flex-1">
+                    <label htmlFor='bankAccount' className=" text-md fond-medium  font-semibold">Numer konta</label>
+                    <input
+                        id="bankAccount"
+                        type="text"
+                        value={clientData.bankAccount}
+                        onChange={(e) => setClientData({...clientData, bankAccount: e.target.value})}
+                        className="w-full input input-bordered border-indigo-400 bg-slate-950 focus:ring-2 focus:ring-teal-400  focus:outline-none"
+                    />
+                </div>
             </div>
 
             {/*Adress*/}
             <h3 className="font-bold text-xl leading-tight">
-                Address
+                Adres
             </h3>
             <div className="border-b-2 border-gray-400 mb-5"/>
-            <div className="grid grid-cols-2 gap-x-2">
+            <div className="grid grid-cols-2 gap-x-4">
                 <div className=" flex flex-col mb-3">
-                    <label htmlFor='city' className=" text-md fond-medium text-gray-800 font-semibold">City</label>
+                    <label htmlFor='city' className=" text-md fond-medium  font-semibold">Miasto</label>
                     <input
                         id="city"
                         type="text"
@@ -88,11 +91,11 @@ const ClientForm = () => {
                             ...clientData,
                             address: {...clientData.address, city: e.target.value}
                         })}
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="w-full input input-bordered border-indigo-400 bg-slate-950 focus:ring-2 focus:ring-teal-400 focus:outline-none"
                     />
                 </div>
                 <div className=" flex flex-col mb-3">
-                    <label htmlFor='street' className=" text-md fond-medium text-gray-800 font-semibold">Street</label>
+                    <label htmlFor='street' className=" text-md fond-medium  font-semibold">Ulica</label>
                     <input
                         id="street"
                         type="text"
@@ -101,12 +104,11 @@ const ClientForm = () => {
                             ...clientData,
                             address: {...clientData.address, street: e.target.value}
                         })}
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="w-full input input-bordered border-indigo-400 bg-slate-950 focus:ring-2 focus:ring-teal-400  focus:outline-none"
                     />
                 </div>
-                <div className=" flex flex-col mb-3">
-                    <label htmlFor='postalCode' className=" text-md fond-medium text-gray-800 font-semibold">Postal
-                        Code</label>
+                <div className="flex flex-col mb-3 ">
+                    <label htmlFor='postalCode' className=" text-md fond-medium  font-semibold">Kod pocztowy</label>
                     <input
                         id="postalCode"
                         type="text"
@@ -115,11 +117,11 @@ const ClientForm = () => {
                             ...clientData,
                             address: {...clientData.address, postalCode: e.target.value}
                         })}
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="w-full input input-bordered border-indigo-400 bg-slate-950 focus:ring-2 focus:ring-teal-400  focus:outline-none"
                     />
                 </div>
                 <div className=" flex flex-col mb-3">
-                    <label htmlFor='taxId' className=" text-md fond-medium text-gray-800 font-semibold">Country</label>
+                    <label htmlFor='taxId' className=" text-md fond-medium  font-semibold">Kraj</label>
                     <input
                         id="taxId"
                         type="text"
@@ -128,14 +130,14 @@ const ClientForm = () => {
                             ...clientData,
                             address: {...clientData.address, country: e.target.value}
                         })}
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="w-full input input-bordered border-indigo-400 bg-slate-950 focus:ring-2 focus:ring-teal-400  focus:outline-none"
                     />
                 </div>
             </div>
             <button
                 type="submit"
                 disabled={loading}
-                className="bg-blue-200 text-blue-700 rounded-md w-full flex items-center justify-center p-2"
+                className="bg-slate-800 rounded-md w-full flex items-center justify-center p-2 cursor-pointer hover:bg-slate-700 transition duration-200"
             >
                 {loading ? <LoaderCircle className="animate-spin"/> : <Plus/>}
             </button>

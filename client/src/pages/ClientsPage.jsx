@@ -3,11 +3,12 @@ import React, {useEffect, useState} from 'react'
 import {useClientStore} from "../store/useClientStore";
 import {FileX, Loader, Pencil, UserRound} from "lucide-react";
 import EditClientModal from "../components/Forms/EditClientModal.jsx";
+import {Link} from "react-router-dom";
 
 const ClientsPage = () => {
     const {fetchClients, loading, clients, deleteClient} = useClientStore();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedClient, setSelectedClient] = useState(null); // Dodano brakujący stan
+    const [selectedClient, setSelectedClient] = useState(null);
 
     const openEditModal = (client) => {
         setSelectedClient(client);
@@ -32,7 +33,7 @@ const ClientsPage = () => {
         <div className="p-2 md:p-4 text-base-200 lg:p-6 ">
             <div className="badge badge-info p-2 md:p-5 ">
                 <h1 className="text-lg md:text-3xl leading-tight flex items-center gap-x-4">
-                    <UserRound />
+                    <UserRound/>
                     Twoi klienci
                 </h1>
             </div>
@@ -44,45 +45,52 @@ const ClientsPage = () => {
                             <Loader className="animate-spin text-blue-500" size={48}/>
                         </div>
                     )}
-                    <table className="table">
-                        <thead className="text-white">
-                        <tr>
-                            <th className="px-4 py-2">Imię</th>
-                            <th className="px-4 py-2">Email</th>
-                            <th className="px-4 py-2">Company Name</th>
-                            <th className="px-4 py-2">Tax ID</th>
-                            <th className="px-4 py-2">Address</th>
-                            <th className="px-4 py-2">Phone</th>
-                            <th className="px-4 py-2">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {clients.map((client) => (
-                            <tr key={client.id}>
-                                <td className="px-4 py-2 ">{client.name}</td>
-                                <td className="px-4 py-2 ">{client.email}</td>
-                                <td className="px-4 py-2 ">{client.companyName}</td>
-                                <td className="px-4 py-2 ">{client.taxId}</td>
-                                <td className="px-4 py-2 ">{client.address.city}, {client.address.street}</td>
-                                <td className="px-4 py-2 ">{client.phone}</td>
-                                <td className="px-4 py-2 flex space-x-3">
-                                    <button
-                                        className="bg-indigo-400 p-2 text-white rounded-md cursor-pointer"
-                                        onClick={() => openEditModal(client)}
-                                    >
-                                        <Pencil size={15}/>
-                                    </button>
-                                    <button
-                                        className="bg-pink-400 p-2 text-white rounded-md cursor-pointer"
-                                        onClick={() => handleDeleteClient(client._id)}
-                                    >
-                                        <FileX size={15}/>
-                                    </button>
-                                </td>
+                    {clients.length === 0 ? (
+                        <div className="p-2 md:p-4 lg:p-6 flex flex-col bg-amber-400  text-black">
+                            Brak klientów
+                            <Link to={'/clients/add'} className="link link-hover">Dodaj klienta</Link>
+                        </div>
+                    ) : (
+                        <table className="table">
+                            <thead className="text-white">
+                            <tr>
+                                <th className="px-4 py-2">Imię</th>
+                                <th className="px-4 py-2">Email</th>
+                                <th className="px-4 py-2">Company Name</th>
+                                <th className="px-4 py-2">Tax ID</th>
+                                <th className="px-4 py-2">Address</th>
+                                <th className="px-4 py-2">Phone</th>
+                                <th className="px-4 py-2">Actions</th>
                             </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {clients.map((client) => (
+                                <tr key={client.id}>
+                                    <td className="px-4 py-2 ">{client.name}</td>
+                                    <td className="px-4 py-2 ">{client.email}</td>
+                                    <td className="px-4 py-2 ">{client.companyName}</td>
+                                    <td className="px-4 py-2 ">{client.taxId}</td>
+                                    <td className="px-4 py-2 ">{client.address.city}, {client.address.street}</td>
+                                    <td className="px-4 py-2 ">{client.phone}</td>
+                                    <td className="px-4 py-2 flex space-x-3">
+                                        <button
+                                            className="bg-indigo-400 p-2 text-white rounded-md cursor-pointer"
+                                            onClick={() => openEditModal(client)}
+                                        >
+                                            <Pencil size={15}/>
+                                        </button>
+                                        <button
+                                            className="bg-pink-400 p-2 text-white rounded-md cursor-pointer"
+                                            onClick={() => handleDeleteClient(client._id)}
+                                        >
+                                            <FileX size={15}/>
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    )}
                 </div>
             </div>
             <EditClientModal
@@ -93,4 +101,5 @@ const ClientsPage = () => {
         </div>
     )
 }
+
 export default ClientsPage

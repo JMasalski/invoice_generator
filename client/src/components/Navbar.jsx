@@ -33,7 +33,7 @@ const Navbar = () => {
                 {sidebarLinks.map((link) => (
                     <li
                         key={link.name}
-                        className={`flex rounded-md p-2 cursor-pointer hover:bg-indigo-400 hover:text-black text-md gap-x-4 ${isActive(link.path)}
+                        className={`flex rounded-md p-2 cursor-pointer hover:bg-indigo-400 hover:text-black hover:scale-110 transition duration-200 text-md gap-x-4 ${isActive(link.path)}
                         }`}
                         onClick={() => handleNav(link.path)}
                     >

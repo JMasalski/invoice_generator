@@ -87,28 +87,6 @@ const EditClientModal = ({ client,  onClose }) => {
                             />
                         </div>
 
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium mb-1">Email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="input input-bordered border-indigo-400 bg-slate-950 w-full"
-                            />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium mb-1">Telefon</label>
-                            <input
-                                type="text"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                className="input input-bordered border-indigo-400 bg-slate-950 w-full"
-                            />
-                        </div>
-
                         {/* Dane firmowe */}
                         <div className="mb-4">
                             <label className="block text-sm font-medium mb-1">Nazwa firmy</label>

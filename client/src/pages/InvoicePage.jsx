@@ -9,12 +9,12 @@ const InvoicePage = () => {
     const {selectedClient} = useClientStore();
     return (
         <div className="p-2 md:p-4 lg:p-6">
-            <div className="flex justify-around ">
+            <div className="flex flex-col md:flex-row space-y-3 justify-around text-white ">
                 <div>
-                    <h1 className="text-xl font-semibold ">
+                    <h1 className="text-xl md:text-2xl font-semibold ">
                         Sprzedawca
                     </h1>
-                    <div className="text-gray-600">
+                    <div className="text-md lg:text-lg text-slate-700">
                         {authUser.address &&
                         authUser.taxId &&
                         authUser.companyName &&
@@ -34,11 +34,11 @@ const InvoicePage = () => {
                 </div>
             </div>
             <div>
-                <h1 className="text-xl font-semibold ">
+                <h1 className=" text-xl md:text-2xl font-semibold ">
                     Nabywca
                 </h1>
                 {selectedClient && (
-                    <div className="text-gray-600">
+                    <div className="text-sm lg:text-lg text-gray-600">
                         <p>{selectedClient.companyName}</p>
                         <p>NIP: {selectedClient.taxId}</p>
                         <p>IBAN: {selectedClient.bankAccount}</p>

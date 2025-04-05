@@ -2,7 +2,9 @@
 @plugin "daisyui" {
   themes: light --default;
 }
-
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(61%) sepia(30%) saturate(3434%) hue-rotate(130deg) brightness(100%) contrast(101%);
+}
 
 
 /*

@@ -179,7 +179,41 @@ const InvoiceForm = () => {
                                     className="select bg-slate-950 border-indigo-400 text-white w-full"
                                 >
                                     <option value="-">Brak</option>
-                                    {/* Options go here */}
+                                    <optgroup label="Waga">
+                                        <option value="kg">Kilogram (kg)</option>
+                                        <option value="g">Gram (g)</option>
+                                        <option value="lb">Funt (lb)</option>
+                                        <option value="oz">Uncja (oz)</option>
+                                        <option value="t">Tona (t)</option>
+                                    </optgroup>
+                                    <optgroup label="Długość">
+                                        <option value="m">Metr (m)</option>
+                                        <option value="cm">Centymetr (cm)</option>
+                                        <option value="mm">Milimetr (mm)</option>
+                                        <option value="km">Kilometr (km)</option>
+                                        <option value="in">Cal (in)</option>
+                                        <option value="ft">Stopa (ft)</option>
+                                    </optgroup>
+                                    <optgroup label="Objętość">
+                                        <option value="l">Litr (L)</option>
+                                        <option value="ml">Mililitr (mL)</option>
+                                        <option value="m3">Metr sześcienny (m³)</option>
+                                        <option value="gal">Galon (gal)</option>
+                                        <option value="qt">Kwarta (qt)</option>
+                                    </optgroup>
+                                    <optgroup label="Czas">
+                                        <option value="h">Godzina (h)</option>
+                                        <option value="min">Minuta (min)</option>
+                                        <option value="s">Sekunda (s)</option>
+                                        <option value="day">Dzień</option>
+                                        <option value="week">Tydzień</option>
+                                    </optgroup>
+                                    <optgroup label="Sztuki">
+                                        <option value="szt">Sztuka (szt.)</option>
+                                        <option value="doz">Tuzin (doz.)</option>
+                                        <option value="zestaw">Zestaw</option>
+                                        <option value="para">Para</option>
+                                    </optgroup>
                                 </select>
 
                                 <input

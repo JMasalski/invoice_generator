@@ -31,7 +31,7 @@ function App() {
                 <Route path="/" element={authUser ? <Layout /> : <Navigate to="/auth" />}>
                     <Route index element={<HomePage />} />
                     <Route path="/settings" element={<SettingsPage />} />
-                    <Route path="/invoices/new" element={<InvoicePage />} />
+                    <Route path="/invoices/add" element={<InvoicePage />} />
                     <Route path="/invoices" element={<InvoiceList />} />
                     <Route path="/clients" element={<ClientsPage />} />
                     <Route path="/clients/add" element={<ClientForm />} />

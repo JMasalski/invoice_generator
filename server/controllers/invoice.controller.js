@@ -108,7 +108,7 @@ export const createInvoice = async (req, res) => {
 export const getAllInvoices = async (req, res) => {
     const user = req.user.id;
     try {
-        const invoices = await Invoice.find({user});
+        const invoices = await Invoice.find({user}).populate("client");
         return res.status(200).json({success: true, invoices});
     } catch (e) {
         console.log("Error in get all invoices route", e);

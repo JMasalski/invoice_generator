@@ -9,7 +9,7 @@ const AuthPage = () => {
             className="min-h-screen font-mono flex items-center justify-around bg-linear-to-b from-cyan-200/50 to-blue-200 p-5">
             <div className="w-full max-w-md text-center bg-white rounded-lg p-5">
                 <h2 className="text-xl text-black">
-                    {isLogin ? "Log in to Billify" : "Sign up to Billify "}
+                    {isLogin ? "Zaloguj się do Billify" : "Zarejestruj się do Billify "}
                 </h2>
                 <div className="mt-5">
                     {isLogin ? <LoginForm/> : <SignUpForm/>}
@@ -23,7 +23,7 @@ const AuthPage = () => {
                             onClick={() => setIsLogin((prevIsLogin) => !prevIsLogin)}
                             className='mt-2 text-blue-700 hover:text-blue-800 font-medium transition-colors duration-300'
                         >
-                            {isLogin ? "Create a new account" : "Sign in to your account"}
+                            {isLogin ? "Stwórz nowe konto" : "Zaloguj się"}
                         </button>
                     </div>
 

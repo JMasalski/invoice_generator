@@ -18,7 +18,6 @@ const InvoicePage = () => {
                         {authUser.address &&
                         authUser.taxId &&
                         authUser.companyName &&
-                        authUser.phone &&
                         authUser.bankAccount ? (
                             <>
                                 <p>{authUser.companyName}</p>

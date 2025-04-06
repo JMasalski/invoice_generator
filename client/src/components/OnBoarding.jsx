@@ -10,7 +10,6 @@ const OnBoarding = ({progress, authUser, invoices, clients}) => {
                 authUser.address &&
                 authUser.taxId &&
                 authUser.companyName &&
-                authUser.phone &&
                 authUser.bankAccount
             ),
         },

@@ -18,7 +18,7 @@ const SignUpForm = () => {
                   signUp(signUpData)
               }}>
             <label htmlFor='name' className="block text-md fond-medium text-gray-800">
-                Full name
+                Imię i nazwisko
             </label>
             <input
                 id='name'
@@ -28,7 +28,7 @@ const SignUpForm = () => {
                 className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
             />
             <label htmlFor='email' className="block text-md fond-medium text-gray-800">
-                Email address
+                Email
             </label>
             <input
                 id='email'
@@ -39,7 +39,7 @@ const SignUpForm = () => {
             >
             </input>
             <label htmlFor='email' className="block text-md fond-medium text-gray-800">
-                Password
+                Hasło
             </label>
             <input
                 id='password'
@@ -54,7 +54,7 @@ const SignUpForm = () => {
                 disabled={loading}
                 className="w-full px-3 py-2 text-white bg-blue-700 rounded-md hover:bg-blue-800 transition-colors duration-300 focus:outline-hidden flex items-center justify-center"
             >
-                {loading ? <LoaderCircle className="animate-spin"/> : "Sign in"}
+                {loading ? <LoaderCircle className="animate-spin"/> : "Zarejestruj się"}
             </button>
         </form>
     )

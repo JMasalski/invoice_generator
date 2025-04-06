@@ -5,7 +5,6 @@ const EditClientModal = ({ client,  onClose }) => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        phone: "",
         companyName: "",
         taxId: "",
         address: {
@@ -23,7 +22,6 @@ const EditClientModal = ({ client,  onClose }) => {
             setFormData({
                 name: client.name || "",
                 email: client.email || "",
-                phone: client.phone || "",
                 companyName: client.companyName || "",
                 taxId: client.taxId || "",
                 address: {

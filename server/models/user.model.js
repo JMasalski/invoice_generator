@@ -38,10 +38,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         match: [/^\d{26}$/, "Bank account must be 26 digits"], // Walidacja dla polskiego IBAN
     },
-    phone: {
-        type: String,
-        match: [/^\+?\d{9,15}$/, "Phone number is invalid"], // Obsługuje formaty międzynarodowe
-    },
     createdAt:{
         type:Date,
         default:Date.now,

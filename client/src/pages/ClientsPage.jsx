@@ -56,11 +56,10 @@ const ClientsPage = () => {
                             <tr>
                                 <th className="px-4 py-2">Imię</th>
                                 <th className="px-4 py-2">Email</th>
-                                <th className="px-4 py-2">Company Name</th>
-                                <th className="px-4 py-2">Tax ID</th>
-                                <th className="px-4 py-2">Address</th>
-                                <th className="px-4 py-2">Phone</th>
-                                <th className="px-4 py-2">Actions</th>
+                                <th className="px-4 py-2">Nazwa firmy</th>
+                                <th className="px-4 py-2">NIP</th>
+                                <th className="px-4 py-2">Adres</th>
+                                <th className="px-4 py-2">Edytuj/Usuń</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -71,7 +70,6 @@ const ClientsPage = () => {
                                     <td className="px-4 py-2 ">{client.companyName}</td>
                                     <td className="px-4 py-2 ">{client.taxId}</td>
                                     <td className="px-4 py-2 ">{client.address.city}, {client.address.street}</td>
-                                    <td className="px-4 py-2 ">{client.phone}</td>
                                     <td className="px-4 py-2 flex space-x-3">
                                         <button
                                             className="bg-indigo-400 p-2 text-white rounded-md cursor-pointer"

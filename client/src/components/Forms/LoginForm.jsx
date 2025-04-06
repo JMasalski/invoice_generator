@@ -16,7 +16,7 @@ const LoginForm = () => {
                   login(loginData)
               }}>
             <label htmlFor='email' className="block text-md fond-medium text-gray-800">
-                Email address
+                Email
             </label>
             <input
                 id='email'
@@ -27,7 +27,7 @@ const LoginForm = () => {
             >
             </input>
             <label htmlFor='email' className="block text-md fond-medium text-gray-800">
-                Password
+                Hasło
             </label>
             <input
                 id='password'
@@ -42,7 +42,7 @@ const LoginForm = () => {
                 disabled={loading}
                 className="w-full px-3 py-2 text-white bg-blue-700 rounded-md hover:bg-blue-800 transition-colors duration-300 focus:outline-hidden flex items-center justify-center"
             >
-                {loading ? <LoaderCircle className="animate-spin"/> : "Log in"}
+                {loading ? <LoaderCircle className="animate-spin"/> : "Zaloguj się"}
             </button>
         </form>
     )

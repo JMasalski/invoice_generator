@@ -18,118 +18,112 @@ const EditProfileForm = () => {
             country: authUser.address?.country || ''
         },
         bankAccount: authUser.bankAccount || '',
-        phone: authUser.phone || ''
     });
     return (
-        <form className="space-y-5 mt-5 text-lg" onSubmit={(e) => {
+        <form className="space-y-5 mt-2 text-lg" onSubmit={(e) => {
             e.preventDefault();
             updateProfile(editData);
         }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <label htmlFor="name" className="block text-md font-medium text-gray-800">Full name</label>
+                    <label htmlFor="name" className="block text-md font-medium">Imię i nazwisko</label>
                     <input
                         id="name"
                         type="text"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.name}
                         onChange={(e) => setEditData({ ...editData, name: e.target.value })}
                     />
                 </div>
                 <div>
-                    <label htmlFor="country" className="block text-md font-medium text-gray-800">Country</label>
+                    <label htmlFor="country" className="block text-md font-medium">Kraj</label>
                     <input
                         id="country"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.address.country}
                         onChange={(e) => setEditData({ ...editData, address: { ...editData.address, country: e.target.value } })}
                     />
                 </div>
                 <div>
-                    <label htmlFor="email" className="block text-md font-medium text-gray-800">Email address</label>
+                    <label htmlFor="email" className="block text-md font-medium">Adres email</label>
                     <input
                         id="email"
                         type="email"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.email}
                         onChange={(e) => setEditData({ ...editData, email: e.target.value })}
                     />
                 </div>
                 <div>
-                    <label htmlFor="city" className="block text-md font-medium text-gray-800">City</label>
+                    <label htmlFor="city" className="block text-md font-medium">Miasto</label>
                     <input
                         id="city"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.address.city}
                         onChange={(e) => setEditData({ ...editData, address: { ...editData.address, city: e.target.value } })}
                     />
                 </div>
                 <div>
-                    <label htmlFor="companyName" className="block text-md font-medium text-gray-800">Company name</label>
+                    <label htmlFor="companyName" className="block text-md font-medium">Nazwa firmy</label>
                     <input
                         id="companyName"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.companyName}
                         onChange={(e) => setEditData({ ...editData, companyName: e.target.value })}
                     />
                 </div>
                 <div>
-                    <label htmlFor="street" className="block text-md font-medium text-gray-800">Street</label>
+                    <label htmlFor="street" className="block text-md font-medium">Street</label>
                     <input
                         id="street"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.address.street}
                         onChange={(e) => setEditData({ ...editData, address: { ...editData.address, street: e.target.value } })}
                     />
                 </div>
                 <div>
-                    <label htmlFor="taxId" className="block text-md font-medium text-gray-800">Tax ID</label>
+                    <label htmlFor="taxId" className="block text-md font-medium">NIP</label>
                     <input
                         id="taxId"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.taxId}
                         onChange={(e) => setEditData({ ...editData, taxId: e.target.value })}
                     />
                 </div>
                 <div>
-                    <label htmlFor="postalCode" className="block text-md font-medium text-gray-800">Postal Code</label>
+                    <label htmlFor="postalCode" className="block text-md font-medium">Kod pocztowy</label>
                     <input
                         id="postalCode"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.address.postalCode}
                         onChange={(e) => setEditData({ ...editData, address: { ...editData.address, postalCode: e.target.value } })}
                     />
                 </div>
                 <div>
-                    <label htmlFor="bankAccount" className="block text-md font-medium text-gray-800">Bank account</label>
+                    <label htmlFor="bankAccount" className="block text-md font-medium">Numer konta bankowego</label>
                     <input
                         id="bankAccount"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
+                        className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"
                         value={editData.bankAccount}
                         onChange={(e) => setEditData({ ...editData, bankAccount: e.target.value })}
                     />
                 </div>
-                <div>
-                    <label htmlFor="phone" className="block text-md font-medium text-gray-800">Phone number</label>
-                    <input
-                        id="phone"
-                        className="w-full px-3 py-2 text-blue-700 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-700 focus:outline-hidden"
-                        value={editData.phone}
-                        onChange={(e) => setEditData({ ...editData, phone: e.target.value })}
-                    />
+                <div className="mt-[28px] ">
+                    <div className="flex gap-3">
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="input w-full px-3 py-2 text-white bg-indigo-400 rounded-md hover:bg-indigo-600 transition duration-200 flex justify-center items-center cursor-pointer">
+                            {loading ? <LoaderCircle className="animate-spin" /> : <span>Zapisz zmiany</span>}
+                        </button>
+                        <button
+                            onClick={()=> deleteAcc()}
+                            className="input w-full px-3 py-2 text-white bg-red-700 rounded-md hover:bg-red-800 flex justify-center transition duration-200 items-center cursor-pointer"
+                        >
+                            Usuń konto
+                        </button>
+                    </div>
                 </div>
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full px-3 py-2 text-white bg-blue-700 rounded-md hover:bg-blue-800 flex justify-center items-center">
-                    {loading ? <LoaderCircle className="animate-spin" /> : <span>Save changes</span>}
-                </button>
-                <button
-                    onClick={()=> deleteAcc()}
-                    className="w-full px-3 py-2 text-white bg-red-700 rounded-md hover:bg-red-800 flex justify-center items-center"
-                >
-                    Delete account
-                </button>
             </div>
         </form>
     )

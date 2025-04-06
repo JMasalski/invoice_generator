@@ -24,13 +24,12 @@ const HomePage = () => {
         authUser.address,
         authUser.taxId,
         authUser.companyName,
-        authUser.phone,
         authUser.bankAccount,
         invoices.length > 0,
         clients.length > 0,
     ].filter(Boolean).length;
 
-    const totalSteps = 7;
+    const totalSteps = 6;
     const progress = (completedSteps / totalSteps) * 100;
     const isOnboardingComplete = completedSteps === totalSteps;
 

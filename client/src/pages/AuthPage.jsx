@@ -16,7 +16,7 @@ const AuthPage = () => {
 
                     <div className='mt-8 text-center'>
                         <p className='text-md text-gray-600'>
-                            {isLogin ? "New to Billify?" : "Already have an account?"}
+                            {isLogin ? "Nowy w Billify?" : "Masz już konto?"}
                         </p>
 
                         <button

@@ -14,7 +14,7 @@ export const useClientStore = create((set) => ({
             const res = await axiosInstance.post("/client/create-client", clientData)
             const newClient = res.data.client
             set(state => ({clients: [...state.clients, newClient]}))
-            toast.success(res.data.message)
+            toast.success("Dodano klienta")
         } catch (e) {
             console.log(e.response.data.message);
             toast.error(e.response?.data?.message || "Error adding product");

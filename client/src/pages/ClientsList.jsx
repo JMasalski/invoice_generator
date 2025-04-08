@@ -48,7 +48,7 @@ const ClientsList = () => {
                     {clients.length === 0 ? (
                         <div className="p-2 md:p-4 lg:p-6 flex flex-col bg-amber-400  text-black">
                             Brak klientów
-                            <Link to={'/invoices/add'} className="link link-hover">Dodaj klienta</Link>
+                            <Link to={'/clients/add'} className="link link-hover">Dodaj klienta</Link>
                         </div>
                     ) : (
                         <table className="table text-white text-md md:text-2xl ">

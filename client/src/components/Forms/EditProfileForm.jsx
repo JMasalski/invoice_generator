@@ -73,7 +73,7 @@ const EditProfileForm = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="street" className="block text-md font-medium">Street</label>
+                    <label htmlFor="street" className="block text-md font-medium">Ulica</label>
                     <input
                         id="street"
                         className="input input-bordered bg-slate-950 border-indigo-400 text-white w-full"

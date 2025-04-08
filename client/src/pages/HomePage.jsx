@@ -34,7 +34,7 @@ const HomePage = () => {
     const isOnboardingComplete = completedSteps === totalSteps;
 
     return (
-        <div className="p-1 md:p-3 lg:p-6">
+        <div className="p-1 md:p-3 lg:p-6 my-auto">
             {isOnboardingComplete ? <Dashboard /> : <OnBoarding progress={progress} authUser={authUser} invoices={invoices} clients={clients} />}
         </div>
     );

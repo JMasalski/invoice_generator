@@ -7,7 +7,7 @@ import {Toaster} from "react-hot-toast";
 import Layout from "./components/Layout.jsx";
 import SettingsPage from "./pages/SettingsPage.jsx";
 import InvoicePage from "./pages/InvoicePage.jsx";
-import ClientsPage from "./pages/ClientsPage.jsx";
+import ClientsList from "./pages/ClientsList.jsx";
 import ClientForm  from "./pages/ClientForm.jsx";
 import InvoiceList from "./components/InvoiceList.jsx";
 
@@ -17,10 +17,6 @@ function App() {
     useEffect(() => {
         checkAuth();
     }, [checkAuth]);
-
-    useEffect(() => {
-        console.log("Auth user:", authUser);
-    }, [authUser]);
 
     if (checkingAuth) return null;
 
@@ -33,7 +29,7 @@ function App() {
                     <Route path="/settings" element={<SettingsPage />} />
                     <Route path="/invoices/add" element={<InvoicePage />} />
                     <Route path="/invoices" element={<InvoiceList />} />
-                    <Route path="/clients" element={<ClientsPage />} />
+                    <Route path="/clients" element={<ClientsList />} />
                     <Route path="/clients/add" element={<ClientForm />} />
                 </Route>
 

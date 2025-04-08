@@ -12,12 +12,11 @@ export const useInvoiceStore = create((set) => ({
             set({loading: true});
             const res = await axiosInstance.post("/invoice/create-invoice", invoiceData);
             const newInvoice = res.data.invoice;
-            console.log("Dane zwrotne", newInvoice);
             set(state => ({invoices: [...state.invoices, newInvoice]}));
-            toast.success("Invoice added successfully");
+            toast.success("Stworzono fakturę");
 
             const pdfRes = await axiosInstance.get(`/invoice/create-pdf/${newInvoice._id}`, {
-                responseType: "blob" // Pobiera dane jako plik binarny (PDF)
+                responseType: "blob"
             });
             const pdfBlob = new Blob([pdfRes.data], {type: "application/pdf"});
             const pdfUrl = URL.createObjectURL(pdfBlob);
@@ -37,7 +36,6 @@ export const useInvoiceStore = create((set) => ({
             const res = await axiosInstance.get("invoice/get-invoices");
 
             set(state => {
-                console.log("fetching invoices", res.data.invoices); // ✅ Poprawione logowanie
                 return {invoices: res.data.invoices};
             });
 
@@ -48,15 +46,19 @@ export const useInvoiceStore = create((set) => ({
         }
     },
 
-    deleteInvoice: async (invoiceId) => {
-        try {
-            const res = await axiosInstance.delete(`invoice/delete-invoice/${invoiceId}`)
-            set({invoices: res.data.invoices});
-            toast.success(res.data.message)
-        } catch (e) {
-            console.log(e.response.data.message)
-            toast.error(e.response?.data?.message || "Error deleting invoice")
+    downloadPDF: async(invoiceId) => {
+        try{
+            const pdfRes = await axiosInstance.get(`/invoice/create-pdf/${invoiceId}`, {
+                responseType: "blob"
+            });
+            const pdfBlob = new Blob([pdfRes.data], {type: "application/pdf"});
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+            window.open(pdfUrl, "_blank", "noopener,noreferrer");
+            setTimeout(() => URL.revokeObjectURL(pdfUrl), 10000);
+        }catch(e){
+            console.error("Error downloading PDF:", e);
+            toast.error(e.response?.data?.message || "Błąd w pobieraniu faktury");
         }
-    },
+    }
 
 }))

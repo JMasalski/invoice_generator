@@ -3,7 +3,6 @@ import {
     Bar,
     XAxis,
     YAxis,
-    CartesianGrid,
     Tooltip,
     ResponsiveContainer
 } from 'recharts';
@@ -11,7 +10,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 
 const MonthlyInvoiceChart = ({ invoices }) => {
-    // Grupowanie faktur po miesiącach i sumowanie kwot
+
     const monthlyTotals = invoices.reduce((acc, invoice) => {
         const month = dayjs(invoice.issueDate).format('YYYY-MM');
         const existing = acc.find(item => item.month === month);
@@ -25,14 +24,12 @@ const MonthlyInvoiceChart = ({ invoices }) => {
         return acc;
     }, []);
 
-    // Sortowanie rosnąco po miesiącu
     monthlyTotals.sort((a, b) => a.month.localeCompare(b.month));
-
+    const lastThreeMonths = monthlyTotals.slice(-3);
     return (
-        <div className="w-full h-96">
-            <ResponsiveContainer width="50%" height="50%">
-                <BarChart data={monthlyTotals}>
-                    <CartesianGrid strokeDasharray="3 3" />
+        <div className="w-full h-96 ">
+            <ResponsiveContainer width="90%" height="100%">
+                <BarChart data={lastThreeMonths}>
                     <XAxis
                         dataKey="month"
                         tickFormatter={(month) =>

@@ -41,9 +41,16 @@ const invoiceSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function(value) {
-                return value > this.issueDate;
+
+                const issueDateOnly = new Date(this.issueDate);
+                issueDateOnly.setHours(0, 0, 0, 0);
+
+                const dueDateOnly = new Date(value);
+                dueDateOnly.setHours(0, 0, 0, 0);
+
+                return dueDateOnly >= issueDateOnly;
             },
-            message: 'Data płatności musi być późniejsza niż data wystawienia'
+            message: 'Data płatności nie może być wcześniejsza niż data wystawienia'
         }
     },
     paymentType: {
@@ -70,7 +77,6 @@ invoiceSchema.pre('save', function(next) {
         }
     }
 
-    // Dodatkowe sprawdzenie całkowitej kwoty
     if (this.totalAmount < 0) {
         return next(new Error('Całkowita kwota nie może być ujemna'));
     }

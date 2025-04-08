@@ -1,68 +1,58 @@
 import React from 'react'
 import {useInvoiceStore} from "../store/useInvoiceStore.js";
 import MonthlyInvoiceChart from "./MonthlyInvoiceChart.jsx";
+import CountUp from "react-countup";
+import {useClientStore} from "../store/useClientStore.js";
+import RecentInvoicesList from "./RecentInvoices.jsx";
 
 const Dashboard = () => {
     const {invoices} = useInvoiceStore();
+    const {clients} = useClientStore()
+    const totalIncome = invoices.reduce((acc, invoice) => {
+        const amount = Number(invoice.totalGrossAmount);
+        return acc + (isNaN(amount) ? 0 : amount);
+    }, 0);
+
     return (
-        <div className="flex flex-col md:flex-row">
-            <MonthlyInvoiceChart invoices={invoices}/>
-            <div>
-                <div className="stats shadow bg-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-4 md:p-6 lg:p-8">
+            <div className="flex flex-col gap-y-4">
+                <h1 className="text-2xl font-bold text-white text-center">
+                    Przychody z ostatnich 3 miesięcy
+                </h1>
+                <div className="w-full">
+                    <MonthlyInvoiceChart invoices={invoices}/>
+                </div>
+            </div>
+
+            {/* Statystyki */}
+            <div className="flex justify-center items-center col-span-1 md:col-span-1">
+                <div
+                    className="stats stats-vertical bg-slate-700 text-white shadow-xl p-2 md:p-4 lg:p-6 rounded-2xl w-full max-w-md gap-6">
                     <div className="stat">
-                        <div className="stat-figure text-primary">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                className="inline-block h-8 w-8 stroke-current">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
+                        <div className="stat-title text-xl text-gray-200">Przychód ogółem</div>
+                        <div className="stat-value text-3xl">
+                            <CountUp end={totalIncome} duration={5} decimals={2} prefix="PLN "/>
                         </div>
-                        <div className="stat-title">Total Likes</div>
-                        <div className="stat-value text-primary">25.6K</div>
-                        <div className="stat-desc">21% more than last month</div>
                     </div>
 
                     <div className="stat">
-                        <div className="stat-figure text-secondary">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                className="inline-block h-8 w-8 stroke-current">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
+                        <div className="stat-title text-xl text-gray-200">Liczba wystawionych faktur</div>
+                        <div className="stat-value text-3xl">
+                            <CountUp end={invoices.length} duration={5}/>
                         </div>
-                        <div className="stat-title">Page Views</div>
-                        <div className="stat-value text-secondary">2.6M</div>
-                        <div className="stat-desc">21% more than last month</div>
                     </div>
 
                     <div className="stat">
-                        <div className="stat-figure text-secondary">
-                            <div className="avatar online">
-                                <div className="w-16 rounded-full">
-                                    <img
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"/>
-                                </div>
-                            </div>
+                        <div className="stat-title text-xl text-gray-200">Liczba klientów</div>
+                        <div className="stat-value text-3xl">
+                            <CountUp end={clients.length} duration={5}/>
                         </div>
-                        <div className="stat-value">86%</div>
-                        <div className="stat-title">Tasks done</div>
-                        <div className="stat-desc text-secondary">31 tasks remaining</div>
                     </div>
                 </div>
             </div>
+            <RecentInvoicesList invoices={invoices}/>
         </div>
-    )
+    );
+
 }
 export default Dashboard

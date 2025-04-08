@@ -17,7 +17,7 @@ const InvoiceForm = () => {
         unit: ""
     }])
     const [dueDate, setDueDate] = useState("");
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("")
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("gotówka")
     useEffect(() => {
         fetchClients()
     }, [])
@@ -72,7 +72,6 @@ const InvoiceForm = () => {
             dueDate,
             paymentType: selectedPaymentMethod,
         }
-        // console.log(invoiceData)
         addInvoice(invoiceData);
     }
 

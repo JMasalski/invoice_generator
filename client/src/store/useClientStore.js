@@ -15,7 +15,6 @@ export const useClientStore = create((set) => ({
             const newClient = res.data.client
             set(state => ({clients: [...state.clients, newClient]}))
             toast.success(res.data.message)
-            console.log(newClient)
         } catch (e) {
             console.log(e.response.data.message);
             toast.error(e.response?.data?.message || "Error adding product");
@@ -29,7 +28,6 @@ export const useClientStore = create((set) => ({
             set({loading:true})
             const res = await axiosInstance.get("client/get-all-clients")
             set({clients: res.data.clients})
-            console.log(res.data.clients)
         }catch (e) {
 
         }finally {
@@ -52,7 +50,6 @@ export const useClientStore = create((set) => ({
         try {
             set({loading: true})
             const res = await axiosInstance.put(`client/update-client/${cid}`, clientData)
-            console.log(res.data);
             const updatedClient = res.data.updatedClient
             set(state => ({
                 clients: state.clients.map(client => client._id === cid ? updatedClient : client),

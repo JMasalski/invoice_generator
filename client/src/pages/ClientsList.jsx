@@ -5,7 +5,7 @@ import {FileX, Loader, Pencil, UserRound} from "lucide-react";
 import EditClientModal from "../components/Forms/EditClientModal.jsx";
 import {Link} from "react-router-dom";
 
-const ClientsPage = () => {
+const ClientsList = () => {
     const {fetchClients, loading, clients, deleteClient} = useClientStore();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedClient, setSelectedClient] = useState(null);
@@ -51,37 +51,35 @@ const ClientsPage = () => {
                             <Link to={'/invoices/add'} className="link link-hover">Dodaj klienta</Link>
                         </div>
                     ) : (
-                        <table className="table">
-                            <thead className="text-white">
-                            <tr>
-                                <th className="px-4 py-2">Imię</th>
-                                <th className="px-4 py-2">Email</th>
-                                <th className="px-4 py-2">Nazwa firmy</th>
-                                <th className="px-4 py-2">NIP</th>
-                                <th className="px-4 py-2">Adres</th>
-                                <th className="px-4 py-2">Edytuj/Usuń</th>
+                        <table className="table text-white text-md md:text-2xl ">
+                            <thead className="text-white text-md md:text-3xl ">
+                            <tr className="text-center">
+                                <th className="px-12 py-2">Imię</th>
+                                <th className="px-12 py-2">Nazwa firmy</th>
+                                <th className="px-12 py-2">NIP</th>
+                                <th className="px-12 py-2">Adres</th>
+                                <th className="px-12 py-2">Edytuj/Usuń</th>
                             </tr>
                             </thead>
                             <tbody>
                             {clients.map((client) => (
-                                <tr key={client.id}>
-                                    <td className="px-4 py-2 ">{client.name}</td>
-                                    <td className="px-4 py-2 ">{client.email}</td>
-                                    <td className="px-4 py-2 ">{client.companyName}</td>
-                                    <td className="px-4 py-2 ">{client.taxId}</td>
-                                    <td className="px-4 py-2 ">{client.address.city}, {client.address.street}</td>
-                                    <td className="px-4 py-2 flex space-x-3">
+                                <tr key={client.id} className="text-center">
+                                    <td className="px-12 py-2 ">{client.name}</td>
+                                    <td className="px-12 py-2 ">{client.companyName}</td>
+                                    <td className="px-12 py-2 ">{client.taxId}</td>
+                                    <td className="px-12 py-2 ">{client.address.city}, {client.address.street}</td>
+                                    <td className="px-12 py-2 flex justify-center space-x-3">
                                         <button
                                             className="bg-indigo-400 p-2 text-white rounded-md cursor-pointer"
                                             onClick={() => openEditModal(client)}
                                         >
-                                            <Pencil size={15}/>
+                                            <Pencil />
                                         </button>
                                         <button
                                             className="bg-pink-400 p-2 text-white rounded-md cursor-pointer"
                                             onClick={() => handleDeleteClient(client._id)}
                                         >
-                                            <FileX size={15}/>
+                                            <FileX />
                                         </button>
                                     </td>
                                 </tr>
@@ -100,4 +98,4 @@ const ClientsPage = () => {
     )
 }
 
-export default ClientsPage
+export default ClientsList

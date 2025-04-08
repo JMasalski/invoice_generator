@@ -37,21 +37,7 @@ export const getAllClients = async (req, res) => {
         res.status(500).json({message: "Internal server error"});
     }
 }
-export const getOneClient = async (req, res) => {
 
-    try {
-        const client = await Client.findOne({
-            _id: req.params.id,
-            userId: req.user.id
-        })
-
-        return res.status(200).json({success: true, client})
-
-    } catch (e) {
-        console.log("Error in get all clients route", e);
-        res.status(500).json({message: "Internal server error"});
-    }
-}
 
 export const updateClient = async (req, res) => {
     const {...data} = req.body;

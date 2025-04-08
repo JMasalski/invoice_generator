@@ -124,7 +124,3 @@ function amountToWords(amount) {
 }
 
 export default amountToWords;
-// console.log(amountToWords(12.23)); // "dziesięć złotych 23/100"
-// console.log(amountToWords(123.45)); // "sto dwadzieścia trzy złote 45/100"
-// console.log(amountToWords(1234.56)); // "tysiąc dwieście trzydzieści cztery złote 56/100"
-// console.log(amountToWords(1000000.00)); // "milion złotych 00/100"

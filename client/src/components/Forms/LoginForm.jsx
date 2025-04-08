@@ -12,7 +12,6 @@ const LoginForm = () => {
         <form className="space-y-5"
               onSubmit={(e) => {
                   e.preventDefault()
-                  console.log(loginData)
                   login(loginData)
               }}>
             <label htmlFor='email' className="block text-md fond-medium text-gray-800">

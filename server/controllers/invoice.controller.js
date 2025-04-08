@@ -44,11 +44,10 @@ export const createInvoice = async (req, res) => {
         const {client, products, dueDate, paymentType} = req.body;
         const userId = req.user.id;
 
-        // Pobranie danych klienta
         const currentClient = await Client.findById(client);
-        if (!currentClient) return res.status(404).json({message: "Client not found"});
+        if (!currentClient) return res.status(404).json({message: "Nie znaleziono klienta"});
 
-        // Przetwarzanie produktów i obliczanie sum
+
         let totalNetAmount = 0;
         let totalTaxAmount = 0;
         let totalGrossAmount = 0;
@@ -78,7 +77,7 @@ export const createInvoice = async (req, res) => {
 
         const invoiceNumber = await generateInvoiceNumber(userId);
 
-        // Utworzenie nowej faktury
+
         const invoice = new Invoice({
             user: userId,
             client,
@@ -92,10 +91,9 @@ export const createInvoice = async (req, res) => {
             paymentType
         });
 
-        // Zapisanie faktury do bazy danych
+
         await invoice.save();
 
-        // Odpowiedź z sukcesem
         return res.status(201).json({success: true, invoice});
 
     } catch (error) {
@@ -116,17 +114,7 @@ export const getAllInvoices = async (req, res) => {
     }
 }
 
-export const getInvoice = async (req, res) => {
-    const user = req.user.id;
-    const InvId = req.param.id
-    try {
-        const invoices = await Invoice.findOne({user, InvId});
-        return res.status(200).json({success: true, invoices});
-    } catch (e) {
-        console.log("Error in get all invoices route", e);
-        res.status(500).json({message: "Internal server error"});
-    }
-}
+
 
 export const invoicePDF = async (req, res) => {
     const {id} = req.params;

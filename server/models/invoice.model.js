@@ -77,7 +77,7 @@ invoiceSchema.pre('save', function(next) {
         }
     }
 
-    if (this.totalAmount < 0) {
+    if (this.totalGrossAmount < 0 || this.totalNetAmount < 0 || this.totalTaxAmount < 0) {
         return next(new Error('Całkowita kwota nie może być ujemna'));
     }
 

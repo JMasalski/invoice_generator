@@ -123,7 +123,6 @@ const Navbar = () => {
                                     <details>
                                         <summary>Klienci</summary>
                                         <ul>
-                                            //TODO POPRAWIC PATH
                                             <li><Link to={'/clients/add'}>Dodaj klienta</Link></li>
                                             <li><Link to={'/clients'}>Moi klienci</Link></li>
                                         </ul>

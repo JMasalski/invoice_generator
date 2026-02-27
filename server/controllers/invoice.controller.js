@@ -281,7 +281,7 @@ export const invoicePDF = async (req, res) => {
     pdf.text("Osoba upoważniona do wystawienia", 130, 250);
     pdf.line(120, 245, 180, 245); // Linia pod podpis
 
-    //generate pdf as buffer
+    //generowanie pdf jako buffer
     const pdfBuffer = Buffer.from(pdf.output('arraybuffer'))
 
     res.setHeader("Content-Type", "application/pdf");

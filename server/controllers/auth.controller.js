@@ -27,7 +27,7 @@ export const signUp = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     try {
-        //checing if user already exists
+        //sprawdzenie czy user juz istnieje
         const existingUser = await User.findOne({email});
         if (existingUser) {
             return res.status(409).json({message: "User already exists"});
@@ -35,11 +35,11 @@ export const signUp = async (req, res) => {
 
 
         //PASSWORD HASHING
-        const salt = await bcrypt.genSalt(10);  // Dodajemy await
-        const hashedPassword = await bcrypt.hash(password, salt);  // Dodajemy await
+        const salt = await bcrypt.genSalt(10); 
+        const hashedPassword = await bcrypt.hash(password, salt); 
 
 
-        // Creating a new User
+        //tworzenie nowego usera
         const newUser = await User.create([{
                 name,
                 email,
@@ -82,14 +82,14 @@ export const signIn = async (req, res) => {
             return res.status(400).json({message: "Please fill all the fields"});
         }
 
-        //checking if user exists
+        //sprawdzenie czy user istnieje
         const existingUser = await User.findOne({email});
 
         if (!existingUser) {
             return res.status(404).json({message: "User does not exist"});
         }
 
-        //checking if password is correct
+        //sprawdzenie czy haslo jest poprawne
         const isPasswordMatch = await bcrypt.compare(password, existingUser.password);
 
         if (!isPasswordMatch) {
